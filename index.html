@@ -1,1321 +1,613 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description"
-    content="Apply for personal training or online coaching with Dragos Szilagyi. Cluj-Napoca and online.">
-  <style>
-    :root {
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px)
-    }
-
-    body {
-      margin: 0
-    }
-
-    img {
-      max-width: 100%
-    }
-
-    [hidden] {
-      display: none !important
-    }
-  </style>
-  <title>Szilagyi Coaching Intake</title>
-  <meta name="claude:viewport-fit-sides" content="cover">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-  <style>
-    /* Layout: one narrow column of numbered intake steps, a sticky progress rail on top, summary card after submit. Brand: charcoal / chalk / iron-red. */
-    :root {
-      --bg: #f3f2ef;
-      --surface: #ffffff;
-      --ink: #1b1c1e;
-      --muted: #5f6166;
-      --line: #d9d7d2;
-      --accent: #b3261e;
-      --accent-ink: #ffffff;
-      --field: #fbfaf8;
-      --ok: #2f6b3a;
-      --warn: #9a5b00;
-      --display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
-      --body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
-      --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #131416;
-        --surface: #1c1d20;
-        --ink: #ecebe7;
-        --muted: #9c9da3;
-        --line: #2f3035;
-        --accent: #e0483d;
-        --accent-ink: #ffffff;
-        --field: #17181a;
-        --ok: #6fbf7d;
-        --warn: #e3a547;
-        color-scheme: dark
-      }
-    }
-
-    :root[data-theme="dark"] {
-      --bg: #131416;
-      --surface: #1c1d20;
-      --ink: #ecebe7;
-      --muted: #9c9da3;
-      --line: #2f3035;
-      --accent: #e0483d;
-      --accent-ink: #ffffff;
-      --field: #17181a;
-      --ok: #6fbf7d;
-      --warn: #e3a547;
-      color-scheme: dark
-    }
-
-    * {
-      box-sizing: border-box
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--body);
-      font-size: 16px;
-      line-height: 1.5;
-      padding-left: max(16px, env(safe-area-inset-left, 0px));
-      padding-right: max(16px, env(safe-area-inset-right, 0px));
-      padding-block: 0 64px
-    }
-
-    .wrap {
-      max-width: 720px;
-      margin: 0 auto
-    }
-
-    header.hero {
-      padding-block: 40px 24px;
-      display: grid;
-      gap: 12px
-    }
-
-    .toprow {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap
-    }
-
-    .lang {
-      display: inline-flex;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      overflow: hidden;
-      background: var(--surface)
-    }
-
-    .lang button {
-      font-family: var(--mono);
-      font-size: 12.5px;
-      letter-spacing: .06em;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      padding: 6px 12px;
-      cursor: pointer
-    }
-
-    .lang button[aria-pressed="true"] {
-      background: var(--ink);
-      color: var(--bg)
-    }
-
-    .tag {
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap
-    }
-
-    .tag b {
-      color: var(--accent);
-      font-weight: 500
-    }
-
-    h1 {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: clamp(40px, 9vw, 68px);
-      line-height: .92;
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: .005em;
-      text-wrap: balance
-    }
-
-    h1 span {
-      color: var(--accent)
-    }
-
-    .lede {
-      color: var(--muted);
-      max-width: 60ch;
-      margin: 0
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 18px;
-      font-family: var(--mono);
-      font-size: 12.5px;
-      color: var(--muted)
-    }
-
-    .meta span::before {
-      content: "› ";
-      color: var(--accent)
-    }
-
-    .rail {
-      position: sticky;
-      top: env(safe-area-inset-top, 0px);
-      z-index: 5;
-      background: var(--bg);
-      padding-block: 10px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 24px
-    }
-
-    .rail-row {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 6px
-    }
-
-    .bar {
-      height: 4px;
-      background: var(--line);
-      border-radius: 2px;
-      overflow: hidden
-    }
-
-    .bar i {
-      display: block;
-      height: 100%;
-      width: 0;
-      background: var(--accent);
-      transition: width .25s ease
-    }
-
-    form {
-      display: grid;
-      gap: 20px
-    }
-
-    fieldset {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      border-radius: 6px;
-      margin: 0;
-      padding: 22px 20px 24px;
-      display: grid;
-      gap: 18px;
-      min-width: 0
-    }
-
-    legend {
-      display: contents
-    }
-
-    .step-head {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 12px
-    }
-
-    .step-no {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--accent)
-    }
-
-    .step-head h2 {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 26px;
-      text-transform: uppercase;
-      margin: 0;
-      letter-spacing: .02em;
-      line-height: 1
-    }
-
-    .hint {
-      font-size: 14px;
-      color: var(--muted);
-      margin: 0
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px
-    }
-
-    .grid.three {
-      grid-template-columns: repeat(3, minmax(0, 1fr))
-    }
-
-    @media (max-width:560px) {
-
-      .grid,
-      .grid.three {
-        grid-template-columns: 1fr
-      }
-    }
-
-    .f {
-      display: grid;
-      gap: 6px;
-      min-width: 0
-    }
-
-    .f.full {
-      grid-column: 1/-1
-    }
-
-    label.l,
-    .l {
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: 15px;
-      letter-spacing: .06em;
-      text-transform: uppercase
-    }
-
-    .req::after {
-      content: " *";
-      color: var(--accent)
-    }
-
-    input[type=text],
-    input[type=email],
-    input[type=tel],
-    input[type=number],
-    input[type=date],
-    select,
-    textarea {
-      width: 100%;
-      font: inherit;
-      font-size: 16px;
-      color: var(--ink);
-      background: var(--field);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 10px 12px
-    }
-
-    textarea {
-      min-height: 88px;
-      resize: vertical
-    }
-
-    input:focus-visible,
-    select:focus-visible,
-    textarea:focus-visible,
-    button:focus-visible,
-    .chip input:focus-visible+span,
-    .yn input:focus-visible+span {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px
-    }
-
-    .unit {
-      position: relative
-    }
-
-    .unit input {
-      padding-right: 44px
-    }
-
-    .unit em {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-style: normal;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      pointer-events: none
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px
-    }
-
-    .chip {
-      position: relative
-    }
-
-    .chip input {
-      position: absolute;
-      opacity: 0;
-      width: 1px;
-      height: 1px
-    }
-
-    .chip span {
-      display: inline-block;
-      padding: 8px 14px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--field);
-      font-size: 15px;
-      cursor: pointer;
-      user-select: none
-    }
-
-    .chip input:checked+span {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--accent-ink)
-    }
-
-    .scale {
-      display: flex;
-      gap: 6px
-    }
-
-    .scale .chip span {
-      width: 44px;
-      text-align: center;
-      padding: 8px 0;
-      font-family: var(--mono)
-    }
-
-    .scale-ends {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: var(--muted);
-      max-width: 260px
-    }
-
-    .parq {
-      display: grid;
-      gap: 0;
-      border-top: 1px solid var(--line)
-    }
-
-    .q {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 12px;
-      align-items: center;
-      padding-block: 12px;
-      border-bottom: 1px solid var(--line)
-    }
-
-    .q p {
-      margin: 0;
-      font-size: 15px
-    }
-
-    .yn {
-      display: flex;
-      gap: 6px
-    }
-
-    .yn label {
-      position: relative
-    }
-
-    .yn input {
-      position: absolute;
-      opacity: 0;
-      width: 1px;
-      height: 1px
-    }
-
-    .yn span {
-      display: inline-block;
-      width: 48px;
-      text-align: center;
-      padding: 6px 0;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      font-family: var(--mono);
-      font-size: 13px;
-      cursor: pointer;
-      background: var(--field)
-    }
-
-    .yn input:checked+span {
-      background: var(--ink);
-      color: var(--bg);
-      border-color: var(--ink)
-    }
-
-    .yn input[value=yes]:checked+span {
-      background: var(--warn);
-      border-color: var(--warn);
-      color: #fff
-    }
-
-    .flag {
-      font-size: 14px;
-      color: var(--warn);
-      border-left: 3px solid var(--warn);
-      padding: 8px 12px;
-      background: var(--field)
-    }
-
-    .check {
-      display: grid;
-      grid-template-columns: 22px minmax(0, 1fr);
-      gap: 10px;
-      align-items: start;
-      font-size: 15px
-    }
-
-    .check input {
-      width: 20px;
-      height: 20px;
-      margin: 2px 0 0;
-      accent-color: var(--accent)
-    }
-
-    .err {
-      color: var(--accent);
-      font-size: 13.5px;
-      font-family: var(--mono)
-    }
-
-    .invalid input,
-    .invalid select,
-    .invalid textarea,
-    .invalid .chip span {
-      border-color: var(--accent)
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center
-    }
-
-    .btn {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 20px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      border: 0;
-      border-radius: 4px;
-      padding: 12px 26px;
-      cursor: pointer;
-      background: var(--accent);
-      color: var(--accent-ink)
-    }
-
-    .btn.ghost {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      font-size: 16px;
-      padding: 10px 18px
-    }
-
-    .small {
-      font-size: 13px;
-      color: var(--muted)
-    }
-
-    #done {
-      display: grid;
-      gap: 18px
-    }
-
-    .receipt {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 22px 20px;
-      display: grid;
-      gap: 16px
-    }
-
-    .receipt h2 {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 36px;
-      text-transform: uppercase;
-      margin: 0;
-      line-height: 1
-    }
-
-    .receipt h2 span {
-      color: var(--ok)
-    }
-
-    pre.sum {
-      font-family: var(--mono);
-      font-size: 13px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-      word-break: break-word;
-      background: var(--field);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      padding: 14px;
-      margin: 0;
-      max-height: 420px;
-      overflow: auto
-    }
-
-    .steps {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding-left: 20px
-    }
-
-    .contact {
-      font-family: var(--mono);
-      font-size: 14px;
-      user-select: all;
-      color: var(--accent)
-    }
-
-    .tag b.sent {
-      color: var(--ok)
-    }
-
-    .backup {
-      display: grid;
-      gap: 10px;
-      border-top: 1px solid var(--line);
-      padding-top: 16px
-    }
-
-    .backup p {
-      margin: 0
-    }
-
-    .btn:disabled {
-      opacity: .6;
-      cursor: wait
-    }
-
-    .hp {
-      display: none
-    }
-
-    a {
-      color: var(--accent)
-    }
-
-    footer {
-      margin-top: 32px;
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 18px
-    }
-
-    @media (prefers-reduced-motion:reduce) {
-      .bar i {
-        transition: none
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Apply for personal training or online coaching with Dragos Szilagyi. Cluj-Napoca and online.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Szilagyi Coaching Intake</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column of numbered intake steps, a sticky progress rail on top, summary card after submit. Brand: charcoal / chalk / iron-red. */
+:root{
+  --bg:#f3f2ef; --surface:#ffffff; --ink:#1b1c1e; --muted:#5f6166; --line:#d9d7d2;
+  --accent:#b3261e; --accent-ink:#ffffff; --field:#fbfaf8; --ok:#2f6b3a; --warn:#9a5b00;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#131416; --surface:#1c1d20; --ink:#ecebe7; --muted:#9c9da3; --line:#2f3035;
+  --accent:#e0483d; --accent-ink:#ffffff; --field:#17181a; --ok:#6fbf7d; --warn:#e3a547; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#131416; --surface:#1c1d20; --ink:#ecebe7; --muted:#9c9da3; --line:#2f3035;
+  --accent:#e0483d; --accent-ink:#ffffff; --field:#17181a; --ok:#6fbf7d; --warn:#e3a547; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:720px;margin:0 auto}
+header.hero{padding-block:40px 24px;display:grid;gap:12px}
+.toprow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.lang button{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:6px 12px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tag{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+.tag b{color:var(--accent);font-weight:500}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,9vw,68px);line-height:.92;margin:0;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lede{color:var(--muted);max-width:60ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.meta span::before{content:"› ";color:var(--accent)}
+
+.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.rail-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:6px}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
+
+form{display:grid;gap:20px}
+fieldset{border:1px solid var(--line);background:var(--surface);border-radius:6px;margin:0;padding:22px 20px 24px;display:grid;gap:18px;min-width:0}
+legend{display:contents}
+.step-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px}
+.step-no{font-family:var(--mono);font-size:12px;color:var(--accent)}
+.step-head h2{font-family:var(--display);font-weight:700;font-size:26px;text-transform:uppercase;margin:0;letter-spacing:.02em;line-height:1}
+.hint{font-size:14px;color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:560px){.grid,.grid.three{grid-template-columns:1fr}}
+.f{display:grid;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+label.l,.l{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.req::after{content:" *";color:var(--accent)}
+input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],select,textarea{
+  width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:4px;padding:10px 12px}
+textarea{min-height:88px;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,.chip input:focus-visible+span,.yn input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.unit{position:relative}
+.unit input{padding-right:44px}
+.unit em{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;font-family:var(--mono);font-size:12px;color:var(--muted);pointer-events:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip span{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--field);font-size:15px;cursor:pointer;user-select:none}
+.chip input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.scale{display:flex;gap:6px}
+.scale .chip span{width:44px;text-align:center;padding:8px 0;font-family:var(--mono)}
+.scale-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);max-width:260px}
+
+.parq{display:grid;gap:0;border-top:1px solid var(--line)}
+.q{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding-block:12px;border-bottom:1px solid var(--line)}
+.q p{margin:0;font-size:15px}
+.yn{display:flex;gap:6px}
+.yn label{position:relative}
+.yn input{position:absolute;opacity:0;width:1px;height:1px}
+.yn span{display:inline-block;width:48px;text-align:center;padding:6px 0;border:1px solid var(--line);border-radius:4px;font-family:var(--mono);font-size:13px;cursor:pointer;background:var(--field)}
+.yn input:checked+span{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.yn input[value=yes]:checked+span{background:var(--warn);border-color:var(--warn);color:#fff}
+.flag{font-size:14px;color:var(--warn);border-left:3px solid var(--warn);padding:8px 12px;background:var(--field)}
+
+.check{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;font-size:15px}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
+.err{color:var(--accent);font-size:13.5px;font-family:var(--mono)}
+.invalid input,.invalid select,.invalid textarea,.invalid .chip span{border-color:var(--accent)}
+
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.06em;text-transform:uppercase;border:0;border-radius:4px;padding:12px 26px;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-size:16px;padding:10px 18px}
+.small{font-size:13px;color:var(--muted)}
+
+#done{display:grid;gap:18px}
+.receipt{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px 20px;display:grid;gap:16px}
+.receipt h2{font-family:var(--display);font-weight:800;font-size:36px;text-transform:uppercase;margin:0;line-height:1}
+.receipt h2 span{color:var(--ok)}
+pre.sum{font-family:var(--mono);font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-word;background:var(--field);border:1px solid var(--line);border-radius:4px;padding:14px;margin:0;max-height:420px;overflow:auto}
+.steps{display:grid;gap:10px;margin:0;padding-left:20px}
+.contact{font-family:var(--mono);font-size:14px;user-select:all;color:var(--accent)}
+.tag b.sent{color:var(--ok)}
+.backup{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:16px}
+.backup p{margin:0}
+.btn:disabled{opacity:.6;cursor:wait}
+.hp{display:none}
+a{color:var(--accent)}
+footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
 
 </head>
-
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <div class="toprow">
-        <div class="tag"><b>● Intake open</b><span>Spots limited</span><span>Cluj-Napoca + online</span></div>
-        <div class="lang" role="group" aria-label="Language / Limbă"><button type="button" data-lang="en"
-            aria-pressed="true">EN</button><button type="button" data-lang="ro" aria-pressed="false">RO</button></div>
-      </div>
-      <h1 data-ro="Formular de <span>înscriere</span>">Coaching <span>intake</span> form</h1>
-      <p class="lede">Tell me where you are now and where you want to get. It takes about 8 minutes. I read every form
-        myself and reply within 48 hours with whether we're a good fit and what the next step looks like.</p>
-      <div class="meta"><span>Dragos Szilagyi</span><span>Natural bodybuilder · runner</span><span>Personal training ·
-          nutrition · online coaching</span></div>
-    </header>
-
-    <div class="rail" aria-hidden="true">
-      <div class="rail-row"><span id="railLabel">01 / About you</span><span id="railPct">0% complete</span></div>
-      <div class="bar"><i id="railBar"></i></div>
+<div class="wrap">
+  <header class="hero">
+    <div class="toprow">
+      <div class="tag"><b>● Intake open</b><span>Spots limited</span><span>Cluj-Napoca + online</span></div>
+      <div class="lang" role="group" aria-label="Language / Limbă"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ro" aria-pressed="false">RO</button></div>
     </div>
+    <h1 data-ro="Formular de <span>înscriere</span>">Coaching <span>intake</span> form</h1>
+    <p class="lede">Tell me where you are now and where you want to get. It takes about 8 minutes. I read every form myself and reply within 48 hours with whether we're a good fit and what the next step looks like.</p>
+    <div class="meta"><span>Dragos Szilagyi</span><span>Natural bodybuilder · runner</span><span>Personal training · nutrition · online coaching</span></div>
+  </header>
 
-    <form id="intake" novalidate>
-      <input type="checkbox" name="botcheck" id="botcheck" class="hp" tabindex="-1" autocomplete="off"
-        aria-hidden="true">
-      <!-- 01 -->
-      <fieldset data-step="01 / About you">
-        <legend>
-          <div class="step-head"><span class="step-no">01</span>
-            <h2>About you</h2>
-          </div>
-        </legend>
-        <div class="grid">
-          <div class="f"><label class="l req" for="name">Full name</label><input type="text" id="name" name="name"
-              autocomplete="name" required></div>
-          <div class="f"><label class="l req" for="email">Email</label><input type="email" id="email" name="email"
-              autocomplete="email" required></div>
-          <div class="f"><label class="l" for="phone">Phone / WhatsApp</label><input type="tel" id="phone" name="phone"
-              autocomplete="tel"></div>
-          <div class="f"><label class="l" for="ig">Instagram</label><input type="text" id="ig" name="ig"
-              placeholder="@handle"></div>
-        </div>
-        <div class="grid three">
-          <div class="f"><label class="l req" for="age">Age</label>
-            <div class="unit"><input type="number" id="age" name="age" min="16" max="90" inputmode="numeric"
-                required><em>yrs</em></div>
-          </div>
-          <div class="f"><label class="l req" for="height">Height</label>
-            <div class="unit"><input type="number" id="height" name="height" min="120" max="230" inputmode="numeric"
-                required><em>cm</em></div>
-          </div>
-          <div class="f"><label class="l req" for="weight">Weight</label>
-            <div class="unit"><input type="number" id="weight" name="weight" min="35" max="250" step="0.1"
-                inputmode="decimal" required><em>kg</em></div>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="f"><span class="l req" id="sexL">Sex</span>
-            <div class="chips" role="radiogroup" aria-labelledby="sexL" data-req="sex">
-              <label class="chip"><input type="radio" name="sex" value="Male"><span>Male</span></label>
-              <label class="chip"><input type="radio" name="sex" value="Female"><span>Female</span></label>
-              <label class="chip"><input type="radio" name="sex" value="Prefer not to say"><span>Prefer not to
-                  say</span></label>
-            </div>
-          </div>
-          <div class="f"><label class="l" for="city">City</label><input type="text" id="city" name="city"
-              autocomplete="address-level2"></div>
-        </div>
-        <p class="hint">Under 18? Please have a parent or guardian fill this in with you.</p>
-      </fieldset>
-
-      <!-- 02 -->
-      <fieldset data-step="02 / Coaching">
-        <legend>
-          <div class="step-head"><span class="step-no">02</span>
-            <h2>What you're looking for</h2>
-          </div>
-        </legend>
-        <div class="f"><span class="l req" id="formatL">Format</span>
-          <div class="chips" role="radiogroup" aria-labelledby="formatL" data-req="format">
-            <label class="chip"><input type="radio" name="format" value="In person (Cluj-Napoca)"><span>In person ·
-                Cluj</span></label>
-            <label class="chip"><input type="radio" name="format" value="Online"><span>Online</span></label>
-            <label class="chip"><input type="radio" name="format" value="Hybrid"><span>Hybrid</span></label>
-          </div>
-        </div>
-        <div class="f"><span class="l req" id="servL">I want help with</span>
-          <div class="chips" data-req="service">
-            <label class="chip"><input type="checkbox" name="service" value="Training program"><span>Training
-                program</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Nutrition"><span>Nutrition</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Weekly check-ins"><span>Weekly
-                check-ins</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Running / cardio plan"><span>Running /
-                cardio</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Contest prep"><span>Contest
-                prep</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Technique sessions"><span>Technique
-                sessions</span></label>
-          </div>
-        </div>
-      </fieldset>
-
-      <!-- 03 -->
-      <fieldset data-step="03 / Goals">
-        <legend>
-          <div class="step-head"><span class="step-no">03</span>
-            <h2>Goals</h2>
-          </div>
-        </legend>
-        <div class="f"><span class="l req" id="goalL">Main goal</span>
-          <div class="chips" role="radiogroup" aria-labelledby="goalL" data-req="goal">
-            <label class="chip"><input type="radio" name="goal" value="Fat loss"><span>Fat loss</span></label>
-            <label class="chip"><input type="radio" name="goal" value="Build muscle"><span>Build muscle</span></label>
-            <label class="chip"><input type="radio" name="goal" value="Recomposition"><span>Recomp</span></label>
-            <label class="chip"><input type="radio" name="goal" value="Strength"><span>Strength</span></label>
-            <label class="chip"><input type="radio" name="goal" value="Running performance"><span>Running</span></label>
-            <label class="chip"><input type="radio" name="goal" value="Compete on stage"><span>Compete on
-                stage</span></label>
-            <label class="chip"><input type="radio" name="goal" value="General health"><span>General
-                health</span></label>
-          </div>
-        </div>
-        <div class="f"><label class="l req" for="goalDetail">Describe it in your own words</label>
-          <textarea id="goalDetail" name="goalDetail"
-            placeholder="e.g. Drop to around 78 kg by summer and keep my strength. I want to finally see abs."
-            required></textarea>
-        </div>
-        <div class="grid">
-          <div class="f"><label class="l" for="timeline">Timeline</label>
-            <select id="timeline" name="timeline">
-              <option value="">Select…</option>
-              <option>Under 3 months</option>
-              <option>3–6 months</option>
-              <option>6–12 months</option>
-              <option>Long term, no rush</option>
-            </select>
-          </div>
-          <div class="f"><label class="l" for="why">Why now?</label><input type="text" id="why" name="why"
-              placeholder="Event, health, fresh start…"></div>
-        </div>
-        <div class="f"><label class="l" for="obstacles">What has stopped you before?</label><textarea id="obstacles"
-            name="obstacles"></textarea></div>
-      </fieldset>
-
-      <!-- 04 -->
-      <fieldset data-step="04 / Training">
-        <legend>
-          <div class="step-head"><span class="step-no">04</span>
-            <h2>Training background</h2>
-          </div>
-        </legend>
-        <div class="f"><span class="l req" id="expL">Experience</span>
-          <div class="chips" role="radiogroup" aria-labelledby="expL" data-req="experience">
-            <label class="chip"><input type="radio" name="experience" value="Never trained"><span>Never
-                trained</span></label>
-            <label class="chip"><input type="radio" name="experience" value="Under 1 year"><span>Under 1
-                yr</span></label>
-            <label class="chip"><input type="radio" name="experience" value="1–3 years"><span>1–3 yrs</span></label>
-            <label class="chip"><input type="radio" name="experience" value="3+ years"><span>3+ yrs</span></label>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="f"><label class="l req" for="days">Days per week you can train</label>
-            <select id="days" name="days" required>
-              <option value="">Select…</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-            </select>
-          </div>
-          <div class="f"><label class="l" for="sessionLen">Time per session</label>
-            <select id="sessionLen" name="sessionLen">
-              <option value="">Select…</option>
-              <option>Under 45 min</option>
-              <option>45–60 min</option>
-              <option>60–90 min</option>
-              <option>90+ min</option>
-            </select>
-          </div>
-        </div>
-        <div class="f"><span class="l req" id="whereL">Where you train</span>
-          <div class="chips" role="radiogroup" aria-labelledby="whereL" data-req="where">
-            <label class="chip"><input type="radio" name="where" value="Commercial gym"><span>Commercial
-                gym</span></label>
-            <label class="chip"><input type="radio" name="where" value="Home gym"><span>Home gym</span></label>
-            <label class="chip"><input type="radio" name="where" value="Bodyweight / outdoors"><span>Bodyweight /
-                outdoors</span></label>
-          </div>
-        </div>
-        <div class="f"><label class="l" for="current">Your current routine</label>
-          <textarea id="current" name="current"
-            placeholder="Split, main lifts, cardio, steps, sports. Rough numbers are fine (e.g. bench 70 kg × 5)."></textarea>
-        </div>
-      </fieldset>
-
-      <!-- 05 -->
-      <fieldset data-step="05 / Nutrition & lifestyle">
-        <legend>
-          <div class="step-head"><span class="step-no">05</span>
-            <h2>Nutrition &amp; lifestyle</h2>
-          </div>
-        </legend>
-        <div class="grid">
-          <div class="f"><label class="l" for="tracking">Do you track food?</label>
-            <select id="tracking" name="tracking">
-              <option value="">Select…</option>
-              <option>No</option>
-              <option>Sometimes</option>
-              <option>Yes, calories</option>
-              <option>Yes, calories and macros</option>
-            </select>
-          </div>
-          <div class="f"><label class="l" for="meals">Meals per day</label>
-            <select id="meals" name="meals">
-              <option value="">Select…</option>
-              <option>1–2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5+</option>
-            </select>
-          </div>
-        </div>
-        <div class="f"><label class="l" for="diet">Food preferences or foods you avoid</label>
-          <input type="text" id="diet" name="diet" placeholder="Vegetarian, no fish, hate oats…">
-        </div>
-        <div class="grid">
-          <div class="f"><label class="l" for="sleep">Average sleep</label>
-            <div class="unit"><input type="number" id="sleep" name="sleep" min="3" max="12" step="0.5"
-                inputmode="decimal"><em>h</em></div>
-          </div>
-          <div class="f"><label class="l" for="job">Daily activity at work</label>
-            <select id="job" name="job">
-              <option value="">Select…</option>
-              <option>Mostly sitting</option>
-              <option>Mixed</option>
-              <option>On my feet</option>
-              <option>Physical labour</option>
-            </select>
-          </div>
-        </div>
-        <div class="f"><span class="l" id="stressL">Stress level</span>
-          <div class="chips scale" role="radiogroup" aria-labelledby="stressL">
-            <label class="chip"><input type="radio" name="stress" value="1"><span>1</span></label>
-            <label class="chip"><input type="radio" name="stress" value="2"><span>2</span></label>
-            <label class="chip"><input type="radio" name="stress" value="3"><span>3</span></label>
-            <label class="chip"><input type="radio" name="stress" value="4"><span>4</span></label>
-            <label class="chip"><input type="radio" name="stress" value="5"><span>5</span></label>
-          </div>
-          <div class="scale-ends"><span>Calm</span><span>Overloaded</span></div>
-        </div>
-        <div class="f"><label class="l" for="wearable">Watch or app you use</label><input type="text" id="wearable"
-            name="wearable" placeholder="Apple Watch, Garmin, MyFitnessPal…"></div>
-      </fieldset>
-
-      <!-- 06 -->
-      <fieldset data-step="06 / Health check">
-        <legend>
-          <div class="step-head"><span class="step-no">06</span>
-            <h2>Health check</h2>
-          </div>
-        </legend>
-        <p class="hint">Standard pre-exercise screening. A "yes" doesn't rule you out; it means we get a doctor's OK
-          before we start.</p>
-        <div class="parq" id="parq">
-          <div class="q">
-            <p>Has a doctor ever said you have a heart condition or high blood pressure?</p>
-            <div class="yn"><label><input type="radio" name="pq1" value="no"><span>NO</span></label><label><input
-                  type="radio" name="pq1" value="yes"><span>YES</span></label></div>
-          </div>
-          <div class="q">
-            <p>Do you feel chest pain at rest, in daily life, or when you exercise?</p>
-            <div class="yn"><label><input type="radio" name="pq2" value="no"><span>NO</span></label><label><input
-                  type="radio" name="pq2" value="yes"><span>YES</span></label></div>
-          </div>
-          <div class="q">
-            <p>Have you lost balance from dizziness or lost consciousness in the last 12 months?</p>
-            <div class="yn"><label><input type="radio" name="pq3" value="no"><span>NO</span></label><label><input
-                  type="radio" name="pq3" value="yes"><span>YES</span></label></div>
-          </div>
-          <div class="q">
-            <p>Have you been diagnosed with any other chronic condition (besides heart issues or blood pressure)?</p>
-            <div class="yn"><label><input type="radio" name="pq4" value="no"><span>NO</span></label><label><input
-                  type="radio" name="pq4" value="yes"><span>YES</span></label></div>
-          </div>
-          <div class="q">
-            <p>Are you currently taking prescribed medication for a chronic condition?</p>
-            <div class="yn"><label><input type="radio" name="pq5" value="no"><span>NO</span></label><label><input
-                  type="radio" name="pq5" value="yes"><span>YES</span></label></div>
-          </div>
-          <div class="q">
-            <p>Do you have a bone, joint or soft-tissue problem that could get worse with more activity?</p>
-            <div class="yn"><label><input type="radio" name="pq6" value="no"><span>NO</span></label><label><input
-                  type="radio" name="pq6" value="yes"><span>YES</span></label></div>
-          </div>
-          <div class="q">
-            <p>Has a doctor said you should only do medically supervised exercise?</p>
-            <div class="yn"><label><input type="radio" name="pq7" value="no"><span>NO</span></label><label><input
-                  type="radio" name="pq7" value="yes"><span>YES</span></label></div>
-          </div>
-        </div>
-        <p class="err" id="parqErr" hidden>Answer all seven questions.</p>
-        <div class="flag" id="parqFlag" hidden>You answered yes to at least one question. That's fine. Before our first
-          session I'll ask you for a short note from your doctor confirming you can train.</div>
-        <div class="f"><label class="l" for="injuries">Injuries, surgeries or pain I should know about</label><textarea
-            id="injuries" name="injuries"
-            placeholder="e.g. Left shoulder impingement in 2024, fine now on most pressing."></textarea></div>
-      </fieldset>
-
-      <!-- 07 -->
-      <fieldset data-step="07 / Logistics">
-        <legend>
-          <div class="step-head"><span class="step-no">07</span>
-            <h2>Logistics</h2>
-          </div>
-        </legend>
-        <div class="grid">
-          <div class="f"><label class="l" for="start">Earliest start date</label><input type="date" id="start"
-              name="start"></div>
-          <div class="f"><label class="l" for="contactPref">Best way to reach you</label>
-            <select id="contactPref" name="contactPref">
-              <option value="">Select…</option>
-              <option>Email</option>
-              <option>Instagram DM</option>
-              <option>WhatsApp</option>
-              <option>Phone call</option>
-            </select>
-          </div>
-        </div>
-        <div class="f"><label class="l" for="source">How did you hear about me?</label>
-          <select id="source" name="source">
-            <option value="">Select…</option>
-            <option>Instagram</option>
-            <option>Friend or gym member</option>
-            <option>Prime Supplements</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="f"><label class="l" for="notes">Anything else?</label><textarea id="notes" name="notes"></textarea>
-        </div>
-        <label class="check" id="c1w"><input type="checkbox" id="c1" name="c1"><span class="req">The information above
-            is accurate, and I'll tell my coach if my health changes.</span></label>
-        <label class="check" id="c2w"><input type="checkbox" id="c2" name="c2"><span class="req">I agree that Dragos
-            Szilagyi may keep this information to assess and run my coaching, and I can ask for it to be deleted at any
-            time.</span></label>
-      </fieldset>
-
-      <div class="actions">
-        <button type="submit" class="btn" id="submit">Review my application</button>
-        <span class="small" id="formErr" role="alert"></span>
-      </div>
-      <p class="small">Your answers stay in this browser until you send them. A draft is saved on this device as you
-        type.</p>
-    </form>
-
-    <section id="done" hidden aria-live="polite">
-      <div class="receipt">
-        <div class="tag"><b id="tagReview">● Ready to send</b><b id="tagSent" class="sent" hidden>● Sent</b><span
-            id="stamp"></span></div>
-        <h2 id="titleReview" data-ro="Aproape <span>gata</span>">Almost <span>done</span></h2>
-        <h2 id="titleSent" hidden data-ro="Înscriere <span>trimisă</span>">Application <span>sent</span></h2>
-        <p id="reviewNote" class="lede">Check your answers below, then send them to me.</p>
-        <p id="sentNote" class="lede" hidden>Thanks. I read every application myself and will reply within 48 hours.</p>
-        <div class="actions" id="sendRow">
-          <button type="button" class="btn" id="send">Send application</button>
-          <button type="button" class="btn ghost" id="edit">Edit answers</button>
-          <span class="small" id="sendMsg" role="status"></span>
-        </div>
-        <pre class="sum" id="sum" tabindex="0"></pre>
-        <div class="backup" id="backup">
-          <p class="small"
-            data-ro='Nu merge trimiterea? Copiază înscrierea și trimite-mi-o pe Instagram la <span class="contact">@dragosszilagyi</span>. <a href="https://www.instagram.com/dragosszilagyi/" target="_blank" rel="noopener">Deschide profilul meu</a>'>
-            Trouble sending? Copy your application and DM it to me on Instagram <span
-              class="contact">@dragosszilagyi</span>. <a href="https://www.instagram.com/dragosszilagyi/"
-              target="_blank" rel="noopener">Open my profile</a></p>
-          <div class="actions">
-            <button type="button" class="btn ghost" id="copy">Copy application</button>
-            <span class="small" id="copyMsg" role="status"></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer><span>Szilagyi Coaching</span><span>Cluj-Napoca · Online</span><span>IG @dragosszilagyi</span></footer>
+  <div class="rail" aria-hidden="true">
+    <div class="rail-row"><span id="railLabel">01 / About you</span><span id="railPct">0% complete</span></div>
+    <div class="bar"><i id="railBar"></i></div>
   </div>
 
-  <script>
-    const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79HERE";
+  <form id="intake" novalidate>
+    <input type="checkbox" name="botcheck" id="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <!-- 01 -->
+    <fieldset data-step="01 / About you">
+      <legend><div class="step-head"><span class="step-no">01</span><h2>About you</h2></div></legend>
+      <div class="grid">
+        <div class="f"><label class="l req" for="name">Full name</label><input type="text" id="name" name="name" autocomplete="name" required></div>
+        <div class="f"><label class="l req" for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" required></div>
+        <div class="f"><label class="l" for="phone">Phone / WhatsApp</label><input type="tel" id="phone" name="phone" autocomplete="tel"></div>
+        <div class="f"><label class="l" for="ig">Instagram</label><input type="text" id="ig" name="ig" placeholder="@handle"></div>
+      </div>
+      <div class="grid three">
+        <div class="f"><label class="l req" for="age">Age</label><div class="unit"><input type="number" id="age" name="age" min="16" max="90" inputmode="numeric" required><em>yrs</em></div></div>
+        <div class="f"><label class="l req" for="height">Height</label><div class="unit"><input type="number" id="height" name="height" min="120" max="230" inputmode="numeric" required><em>cm</em></div></div>
+        <div class="f"><label class="l req" for="weight">Weight</label><div class="unit"><input type="number" id="weight" name="weight" min="35" max="250" step="0.1" inputmode="decimal" required><em>kg</em></div></div>
+      </div>
+      <div class="grid">
+        <div class="f"><span class="l req" id="sexL">Sex</span>
+          <div class="chips" role="radiogroup" aria-labelledby="sexL" data-req="sex">
+            <label class="chip"><input type="radio" name="sex" value="Male"><span>Male</span></label>
+            <label class="chip"><input type="radio" name="sex" value="Female"><span>Female</span></label>
+            <label class="chip"><input type="radio" name="sex" value="Prefer not to say"><span>Prefer not to say</span></label>
+          </div></div>
+        <div class="f"><label class="l" for="city">City</label><input type="text" id="city" name="city" autocomplete="address-level2"></div>
+      </div>
+      <p class="hint">Under 18? Please have a parent or guardian fill this in with you.</p>
+    </fieldset>
 
-    (function () {
-      // ---- language ----
-      const RO = {
-        "● Intake open": "● Înscrieri deschise", "Spots limited": "Locuri limitate",
-        "Tell me where you are now and where you want to get. It takes about 8 minutes. I read every form myself and reply within 48 hours with whether we're a good fit and what the next step looks like.": "Spune-mi unde ești acum și unde vrei să ajungi. Durează cam 8 minute. Citesc personal fiecare formular și îți răspund în 48 de ore dacă ne potrivim și care e următorul pas.",
-        "Natural bodybuilder · runner": "Culturist natural · alergător", "Personal training · nutrition · online coaching": "Antrenament personal · nutriție · coaching online",
-        "About you": "Despre tine", "What you're looking for": "Ce cauți", "Goals": "Obiective", "Training background": "Experiența de antrenament", "Nutrition & lifestyle": "Nutriție și stil de viață", "Health check": "Verificare medicală", "Logistics": "Detalii practice",
-        "01 / About you": "01 / Despre tine", "02 / Coaching": "02 / Coaching", "03 / Goals": "03 / Obiective", "04 / Training": "04 / Antrenament", "05 / Nutrition & lifestyle": "05 / Nutriție și stil de viață", "06 / Health check": "06 / Verificare medicală", "07 / Logistics": "07 / Detalii practice",
-        "Full name": "Nume complet", "Phone / WhatsApp": "Telefon / WhatsApp", "Age": "Vârstă", "Height": "Înălțime", "Weight": "Greutate", "yrs": "ani",
-        "Male": "Masculin", "Female": "Feminin", "Prefer not to say": "Prefer să nu spun", "City": "Oraș",
-        "Under 18? Please have a parent or guardian fill this in with you.": "Ai sub 18 ani? Te rog completează formularul împreună cu un părinte sau tutore.",
-        "In person · Cluj": "Față în față · Cluj", "Hybrid": "Hibrid", "I want help with": "Vreau ajutor cu", "Training program": "Program de antrenament", "Nutrition": "Nutriție", "Weekly check-ins": "Check-in săptămânal", "Running / cardio": "Alergare / cardio", "Contest prep": "Pregătire de concurs", "Technique sessions": "Sesiuni de tehnică",
-        "Main goal": "Obiectiv principal", "Fat loss": "Slăbire", "Build muscle": "Masă musculară", "Recomp": "Recompoziție", "Strength": "Forță", "Running": "Alergare", "Compete on stage": "Concurs pe scenă", "General health": "Sănătate generală",
-        "Describe it in your own words": "Descrie-l cu cuvintele tale", "Timeline": "Termen", "Select…": "Alege…", "Under 3 months": "Sub 3 luni", "3–6 months": "3–6 luni", "6–12 months": "6–12 luni", "Long term, no rush": "Pe termen lung, fără grabă",
-        "Why now?": "De ce acum?", "What has stopped you before?": "Ce te-a oprit până acum?",
-        "Experience": "Experiență", "Never trained": "Nu m-am antrenat niciodată", "Under 1 yr": "Sub 1 an", "1–3 yrs": "1–3 ani", "3+ yrs": "3+ ani",
-        "Days per week you can train": "Zile pe săptămână în care te poți antrena", "Time per session": "Timp pe antrenament", "Under 45 min": "Sub 45 min",
-        "Where you train": "Unde te antrenezi", "Commercial gym": "Sală de fitness", "Home gym": "Sală acasă", "Bodyweight / outdoors": "Greutatea corpului / în aer liber", "Your current routine": "Rutina ta actuală",
-        "Do you track food?": "Îți monitorizezi alimentația?", "No": "Nu", "Sometimes": "Uneori", "Yes, calories": "Da, caloriile", "Yes, calories and macros": "Da, calorii și macronutrienți", "Meals per day": "Mese pe zi",
-        "Food preferences or foods you avoid": "Preferințe alimentare sau alimente pe care le eviți", "Average sleep": "Somn mediu", "Daily activity at work": "Activitatea zilnică la muncă",
-        "Mostly sitting": "Mai mult pe scaun", "Mixed": "Mixt", "On my feet": "Mult în picioare", "Physical labour": "Muncă fizică", "Stress level": "Nivel de stres", "Overloaded": "Copleșit", "Watch or app you use": "Ceasul sau aplicația pe care o folosești",
-        "Standard pre-exercise screening. A \"yes\" doesn't rule you out; it means we get a doctor's OK before we start.": "Chestionar standard înainte de efort fizic. Un „da” nu te exclude; înseamnă doar că avem nevoie de acordul unui medic înainte să începem.",
-        "Has a doctor ever said you have a heart condition or high blood pressure?": "Ți-a spus vreodată un medic că ai o afecțiune cardiacă sau tensiune arterială mare?",
-        "Do you feel chest pain at rest, in daily life, or when you exercise?": "Simți dureri în piept în repaus, în activitățile zilnice sau când faci efort?",
-        "Have you lost balance from dizziness or lost consciousness in the last 12 months?": "Ți-ai pierdut echilibrul din cauza amețelii sau ți-ai pierdut cunoștința în ultimele 12 luni?",
-        "Have you been diagnosed with any other chronic condition (besides heart issues or blood pressure)?": "Ai fost diagnosticat(ă) cu o altă afecțiune cronică (în afară de probleme cardiace sau de tensiune)?",
-        "Are you currently taking prescribed medication for a chronic condition?": "Iei în prezent medicamente prescrise pentru o afecțiune cronică?",
-        "Do you have a bone, joint or soft-tissue problem that could get worse with more activity?": "Ai o problemă la oase, articulații sau țesuturi moi care s-ar putea agrava cu mai multă activitate?",
-        "Has a doctor said you should only do medically supervised exercise?": "Ți-a spus un medic să faci exerciții doar sub supraveghere medicală?",
-        "NO": "NU", "YES": "DA", "Answer all seven questions.": "Răspunde la toate cele șapte întrebări.",
-        "You answered yes to at least one question. That's fine. Before our first session I'll ask you for a short note from your doctor confirming you can train.": "Ai răspuns „da” la cel puțin o întrebare. E în regulă. Înainte de prima sesiune îți voi cere o scurtă adeverință de la medic care confirmă că te poți antrena.",
-        "Injuries, surgeries or pain I should know about": "Accidentări, operații sau dureri despre care ar trebui să știu",
-        "Earliest start date": "Cea mai apropiată dată de început", "Best way to reach you": "Cum te pot contacta cel mai ușor", "Instagram DM": "Mesaj pe Instagram", "Phone call": "Apel telefonic",
-        "How did you hear about me?": "De unde ai aflat de mine?", "Friend or gym member": "Un prieten sau cineva de la sală", "Other": "Altceva", "Anything else?": "Mai vrei să adaugi ceva?",
-        "The information above is accurate, and I'll tell my coach if my health changes.": "Informațiile de mai sus sunt corecte și îi voi spune antrenorului dacă starea mea de sănătate se schimbă.",
-        "I agree that Dragos Szilagyi may keep this information to assess and run my coaching, and I can ask for it to be deleted at any time.": "Sunt de acord ca Dragos Szilagyi să păstreze aceste informații pentru a-mi evalua și coordona programul, și pot cere oricând ștergerea lor.",
-        "Review my application": "Verifică înscrierea",
-        "Your answers stay in this browser until you send them. A draft is saved on this device as you type.": "Răspunsurile rămân în acest browser până le trimiți. O ciornă se salvează pe acest dispozitiv pe măsură ce scrii.",
-        "● Ready to send": "● Gata de trimis", "Copy your application with the button below.": "Copiază înscrierea cu butonul de mai jos.", "I'll reply within 48 hours.": "Îți răspund în 48 de ore.",
-        "Copy application": "Copiază înscrierea", "Edit answers": "Editează răspunsurile",
-        "● Sent": "● Trimis", "Check your answers below, then send them to me.": "Verifică răspunsurile de mai jos, apoi trimite-mi-le.",
-        "Thanks. I read every application myself and will reply within 48 hours.": "Mulțumesc. Citesc personal fiecare înscriere și îți răspund în 48 de ore.",
-        "Send application": "Trimite înscrierea", "Sending…": "Se trimite…",
-        "That didn't go through. Check your connection and try again, or copy your application and DM it to me.": "Nu s-a putut trimite. Verifică conexiunea și încearcă din nou, sau copiază înscrierea și trimite-mi-o pe Instagram.",
-        "e.g. Drop to around 78 kg by summer and keep my strength. I want to finally see abs.": "ex. Să ajung la aproximativ 78 kg până la vară și să-mi păstrez forța. Vreau să-mi văd în sfârșit abdomenul.",
-        "Event, health, fresh start…": "Un eveniment, sănătatea, un nou început…",
-        "Split, main lifts, cardio, steps, sports. Rough numbers are fine (e.g. bench 70 kg × 5).": "Split, exerciții de bază, cardio, pași, sporturi. Cifre aproximative sunt ok (ex. împins 70 kg × 5).",
-        "Vegetarian, no fish, hate oats…": "Vegetarian, fără pește, nu suport ovăzul…",
-        "Apple Watch, Garmin, MyFitnessPal…": "Apple Watch, Garmin, MyFitnessPal…",
-        "e.g. Left shoulder impingement in 2024, fine now on most pressing.": "ex. Impingement la umărul stâng în 2024, acum fără probleme la majoritatea împinsurilor.",
-        // dynamic
-        "complete": "completat",
-        "Some required answers are missing. They are marked in red.": "Lipsesc câteva răspunsuri obligatorii. Sunt marcate cu roșu.",
-        "Copied. Paste it into a DM to @dragosszilagyi.": "Copiat. Lipește-l într-un mesaj către @dragosszilagyi.",
-        "Text selected. Press Ctrl/Cmd+C to copy.": "Text selectat. Apasă Ctrl/Cmd+C pentru a copia."
-      };
-      let lang = 'en';
-      const t = s => lang === 'ro' ? (RO[s] || s) : s;
-      const orig = new WeakMap();
-      const root = document.querySelector('.wrap');
-      function applyLang(next) {
-        lang = next;
-        const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-          acceptNode(n) {
-            const p = n.parentElement;
-            if (!p || p.closest('script,style,#sum,[data-ro],.lang')) return NodeFilter.FILTER_REJECT;
-            return NodeFilter.FILTER_ACCEPT;
-          }
-        });
-        let n;
-        while ((n = w.nextNode())) {
-          if (!orig.has(n)) orig.set(n, n.nodeValue);
-          const o = orig.get(n), key = o.trim();
-          if (!key || !(key in RO)) continue;
-          const p = n.parentElement;
-          if (p.tagName === 'OPTION' && !p.hasAttribute('value')) p.setAttribute('value', key);
-          n.nodeValue = lang === 'ro' ? o.replace(key, RO[key]) : o;
-        }
-        root.querySelectorAll('[data-ro]').forEach(el => {
-          if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
-          el.innerHTML = lang === 'ro' ? el.dataset.ro : el.dataset.en;
-        });
-        root.querySelectorAll('[placeholder]').forEach(el => {
-          if (el.dataset.phEn === undefined) el.dataset.phEn = el.placeholder;
-          el.placeholder = t(el.dataset.phEn);
-        });
-        root.querySelectorAll('[data-step]').forEach(el => {
-          if (el.dataset.stepEn === undefined) el.dataset.stepEn = el.dataset.step;
-          el.dataset.step = t(el.dataset.stepEn);
-        });
-        document.documentElement.lang = lang;
-        document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
-        try { localStorage.setItem('szc-lang', lang); } catch (e) { }
-        if (window.__szcRefresh) window.__szcRefresh();
-      }
-      document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+    <!-- 02 -->
+    <fieldset data-step="02 / Coaching">
+      <legend><div class="step-head"><span class="step-no">02</span><h2>What you're looking for</h2></div></legend>
+      <div class="f"><span class="l req" id="formatL">Format</span>
+        <div class="chips" role="radiogroup" aria-labelledby="formatL" data-req="format">
+          <label class="chip"><input type="radio" name="format" value="In person (Cluj-Napoca)"><span>In person · Cluj</span></label>
+          <label class="chip"><input type="radio" name="format" value="Online"><span>Online</span></label>
+          <label class="chip"><input type="radio" name="format" value="Hybrid"><span>Hybrid</span></label>
+        </div></div>
+      <div class="f"><span class="l req" id="servL">I want help with</span>
+        <div class="chips" data-req="service">
+          <label class="chip"><input type="checkbox" name="service" value="Training program"><span>Training program</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Nutrition"><span>Nutrition</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Weekly check-ins"><span>Weekly check-ins</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Running / cardio plan"><span>Running / cardio</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Contest prep"><span>Contest prep</span></label>
+          <label class="chip"><input type="checkbox" name="service" value="Technique sessions"><span>Technique sessions</span></label>
+        </div></div>
+    </fieldset>
 
-      const form = document.getElementById('intake');
-      const KEY = 'szc-intake-draft';
-      const fieldsets = [...form.querySelectorAll('fieldset')];
-      const reqNames = ['sex', 'format', 'service', 'goal', 'experience', 'where'];
+    <!-- 03 -->
+    <fieldset data-step="03 / Goals">
+      <legend><div class="step-head"><span class="step-no">03</span><h2>Goals</h2></div></legend>
+      <div class="f"><span class="l req" id="goalL">Main goal</span>
+        <div class="chips" role="radiogroup" aria-labelledby="goalL" data-req="goal">
+          <label class="chip"><input type="radio" name="goal" value="Fat loss"><span>Fat loss</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Build muscle"><span>Build muscle</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Recomposition"><span>Recomp</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Strength"><span>Strength</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Running performance"><span>Running</span></label>
+          <label class="chip"><input type="radio" name="goal" value="Compete on stage"><span>Compete on stage</span></label>
+          <label class="chip"><input type="radio" name="goal" value="General health"><span>General health</span></label>
+        </div></div>
+      <div class="f"><label class="l req" for="goalDetail">Describe it in your own words</label>
+        <textarea id="goalDetail" name="goalDetail" placeholder="e.g. Drop to around 78 kg by summer and keep my strength. I want to finally see abs." required></textarea></div>
+      <div class="grid">
+        <div class="f"><label class="l" for="timeline">Timeline</label>
+          <select id="timeline" name="timeline"><option value="">Select…</option><option>Under 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Long term, no rush</option></select></div>
+        <div class="f"><label class="l" for="why">Why now?</label><input type="text" id="why" name="why" placeholder="Event, health, fresh start…"></div>
+      </div>
+      <div class="f"><label class="l" for="obstacles">What has stopped you before?</label><textarea id="obstacles" name="obstacles"></textarea></div>
+    </fieldset>
 
-      // ---- draft save/restore (per-device convenience) ----
-      function serialize() {
-        const o = {};
-        for (const el of form.elements) {
-          if (!el.name) continue;
-          if (el.type === 'radio') { if (el.checked) o[el.name] = el.value; }
-          else if (el.type === 'checkbox') {
-            if (el.name === 'service') { (o.service = o.service || []); if (el.checked) o.service.push(el.value); }
-            else o[el.name] = el.checked;
-          } else o[el.name] = el.value;
-        }
-        return o;
-      }
-      function restore(o) {
-        for (const el of form.elements) {
-          if (!el.name || !(el.name in o)) continue;
-          const v = o[el.name];
-          if (el.type === 'radio') el.checked = (v === el.value);
-          else if (el.type === 'checkbox') el.checked = el.name === 'service' ? (v || []).includes(el.value) : !!v;
-          else el.value = v;
-        }
-      }
-      try { const d = localStorage.getItem(KEY); if (d) restore(JSON.parse(d)); } catch (e) { }
-      let saveTimer;
-      form.addEventListener('input', () => { clearTimeout(saveTimer); saveTimer = setTimeout(() => { try { localStorage.setItem(KEY, JSON.stringify(serialize())) } catch (e) { } }, 300); update(); });
-      form.addEventListener('change', update);
+    <!-- 04 -->
+    <fieldset data-step="04 / Training">
+      <legend><div class="step-head"><span class="step-no">04</span><h2>Training background</h2></div></legend>
+      <div class="f"><span class="l req" id="expL">Experience</span>
+        <div class="chips" role="radiogroup" aria-labelledby="expL" data-req="experience">
+          <label class="chip"><input type="radio" name="experience" value="Never trained"><span>Never trained</span></label>
+          <label class="chip"><input type="radio" name="experience" value="Under 1 year"><span>Under 1 yr</span></label>
+          <label class="chip"><input type="radio" name="experience" value="1–3 years"><span>1–3 yrs</span></label>
+          <label class="chip"><input type="radio" name="experience" value="3+ years"><span>3+ yrs</span></label>
+        </div></div>
+      <div class="grid">
+        <div class="f"><label class="l req" for="days">Days per week you can train</label>
+          <select id="days" name="days" required><option value="">Select…</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div>
+        <div class="f"><label class="l" for="sessionLen">Time per session</label>
+          <select id="sessionLen" name="sessionLen"><option value="">Select…</option><option>Under 45 min</option><option>45–60 min</option><option>60–90 min</option><option>90+ min</option></select></div>
+      </div>
+      <div class="f"><span class="l req" id="whereL">Where you train</span>
+        <div class="chips" role="radiogroup" aria-labelledby="whereL" data-req="where">
+          <label class="chip"><input type="radio" name="where" value="Commercial gym"><span>Commercial gym</span></label>
+          <label class="chip"><input type="radio" name="where" value="Home gym"><span>Home gym</span></label>
+          <label class="chip"><input type="radio" name="where" value="Bodyweight / outdoors"><span>Bodyweight / outdoors</span></label>
+        </div></div>
+      <div class="f"><label class="l" for="current">Your current routine</label>
+        <textarea id="current" name="current" placeholder="Split, main lifts, cardio, steps, sports. Rough numbers are fine (e.g. bench 70 kg × 5)."></textarea></div>
+    </fieldset>
 
-      // ---- progress + PAR-Q flag ----
-      function isDone(fs) {
-        const req = fs.querySelectorAll('[required]');
-        for (const r of req) if (!r.value.trim()) return false;
-        for (const g of fs.querySelectorAll('[data-req]')) if (!g.querySelector('input:checked')) return false;
-        if (fs.querySelector('#parq')) for (let i = 1; i <= 7; i++) if (!form.querySelector(`input[name=pq${i}]:checked`)) return false;
-        if (fs.querySelector('#c1')) return form.c1.checked && form.c2.checked;
-        return true;
-      }
-      function update() {
-        const n = fieldsets.filter(isDone).length;
-        const pct = Math.round(n / fieldsets.length * 100);
-        document.getElementById('railBar').style.width = pct + '%';
-        document.getElementById('railPct').textContent = pct + '% ' + t('complete');
-        const anyYes = form.querySelector('#parq input[value=yes]:checked');
-        document.getElementById('parqFlag').hidden = !anyYes;
-      }
-      // which step is on screen
-      let currentFs = fieldsets[0];
-      const setRail = () => { document.getElementById('railLabel').textContent = currentFs.dataset.step; };
-      const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => {
-        es.forEach(e => { if (e.isIntersecting) { currentFs = e.target; setRail(); } });
-      }, { rootMargin: '-30% 0px -60% 0px' }) : null;
-      if (io) fieldsets.forEach(f => io.observe(f));
-      window.__szcRefresh = () => { update(); setRail(); };
-      let startLang = 'en';
-      try { const s = localStorage.getItem('szc-lang'); if (s === 'ro' || s === 'en') startLang = s; else if ((navigator.language || '').toLowerCase().startsWith('ro')) startLang = 'ro'; } catch (e) { if ((navigator.language || '').toLowerCase().startsWith('ro')) startLang = 'ro'; }
-      applyLang(startLang);
+    <!-- 05 -->
+    <fieldset data-step="05 / Nutrition & lifestyle">
+      <legend><div class="step-head"><span class="step-no">05</span><h2>Nutrition &amp; lifestyle</h2></div></legend>
+      <div class="grid">
+        <div class="f"><label class="l" for="tracking">Do you track food?</label>
+          <select id="tracking" name="tracking"><option value="">Select…</option><option>No</option><option>Sometimes</option><option>Yes, calories</option><option>Yes, calories and macros</option></select></div>
+        <div class="f"><label class="l" for="meals">Meals per day</label>
+          <select id="meals" name="meals"><option value="">Select…</option><option>1–2</option><option>3</option><option>4</option><option>5+</option></select></div>
+      </div>
+      <div class="f"><label class="l" for="diet">Food preferences or foods you avoid</label>
+        <input type="text" id="diet" name="diet" placeholder="Vegetarian, no fish, hate oats…"></div>
+      <div class="grid">
+        <div class="f"><label class="l" for="sleep">Average sleep</label><div class="unit"><input type="number" id="sleep" name="sleep" min="3" max="12" step="0.5" inputmode="decimal"><em>h</em></div></div>
+        <div class="f"><label class="l" for="job">Daily activity at work</label>
+          <select id="job" name="job"><option value="">Select…</option><option>Mostly sitting</option><option>Mixed</option><option>On my feet</option><option>Physical labour</option></select></div>
+      </div>
+      <div class="f"><span class="l" id="stressL">Stress level</span>
+        <div class="chips scale" role="radiogroup" aria-labelledby="stressL">
+          <label class="chip"><input type="radio" name="stress" value="1"><span>1</span></label>
+          <label class="chip"><input type="radio" name="stress" value="2"><span>2</span></label>
+          <label class="chip"><input type="radio" name="stress" value="3"><span>3</span></label>
+          <label class="chip"><input type="radio" name="stress" value="4"><span>4</span></label>
+          <label class="chip"><input type="radio" name="stress" value="5"><span>5</span></label>
+        </div>
+        <div class="scale-ends"><span>Calm</span><span>Overloaded</span></div></div>
+      <div class="f"><label class="l" for="wearable">Watch or app you use</label><input type="text" id="wearable" name="wearable" placeholder="Apple Watch, Garmin, MyFitnessPal…"></div>
+    </fieldset>
 
-      // ---- validation ----
-      function mark(el, bad) { const f = el.closest('.f,.check'); if (f) f.classList.toggle('invalid', bad); }
-      function validate() {
-        let first = null;
-        const flag = el => { if (!first) first = el; };
-        form.querySelectorAll('[required]').forEach(el => {
-          let bad = !el.value.trim();
-          if (!bad && el.type === 'email') bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
-          if (!bad && el.type === 'number') { const v = +el.value; bad = (el.min && v < +el.min) || (el.max && v > +el.max); }
-          mark(el, bad); if (bad) flag(el);
-        });
-        reqNames.forEach(n => {
-          const g = form.querySelector(`[data-req="${n}"]`);
-          const bad = !g.querySelector('input:checked');
-          g.closest('.f').classList.toggle('invalid', bad); if (bad) flag(g);
-        });
-        let parqBad = false; for (let i = 1; i <= 7; i++) if (!form.querySelector(`input[name=pq${i}]:checked`)) parqBad = true;
-        document.getElementById('parqErr').hidden = !parqBad; if (parqBad) flag(document.getElementById('parq'));
-        ['c1', 'c2'].forEach(id => { const bad = !form[id].checked; document.getElementById(id + 'w').classList.toggle('invalid', bad); if (bad) flag(form[id]); });
-        return first;
-      }
+    <!-- 06 -->
+    <fieldset data-step="06 / Health check">
+      <legend><div class="step-head"><span class="step-no">06</span><h2>Health check</h2></div></legend>
+      <p class="hint">Standard pre-exercise screening. A "yes" doesn't rule you out; it means we get a doctor's OK before we start.</p>
+      <div class="parq" id="parq">
+        <div class="q"><p>Has a doctor ever said you have a heart condition or high blood pressure?</p><div class="yn"><label><input type="radio" name="pq1" value="no"><span>NO</span></label><label><input type="radio" name="pq1" value="yes"><span>YES</span></label></div></div>
+        <div class="q"><p>Do you feel chest pain at rest, in daily life, or when you exercise?</p><div class="yn"><label><input type="radio" name="pq2" value="no"><span>NO</span></label><label><input type="radio" name="pq2" value="yes"><span>YES</span></label></div></div>
+        <div class="q"><p>Have you lost balance from dizziness or lost consciousness in the last 12 months?</p><div class="yn"><label><input type="radio" name="pq3" value="no"><span>NO</span></label><label><input type="radio" name="pq3" value="yes"><span>YES</span></label></div></div>
+        <div class="q"><p>Have you been diagnosed with any other chronic condition (besides heart issues or blood pressure)?</p><div class="yn"><label><input type="radio" name="pq4" value="no"><span>NO</span></label><label><input type="radio" name="pq4" value="yes"><span>YES</span></label></div></div>
+        <div class="q"><p>Are you currently taking prescribed medication for a chronic condition?</p><div class="yn"><label><input type="radio" name="pq5" value="no"><span>NO</span></label><label><input type="radio" name="pq5" value="yes"><span>YES</span></label></div></div>
+        <div class="q"><p>Do you have a bone, joint or soft-tissue problem that could get worse with more activity?</p><div class="yn"><label><input type="radio" name="pq6" value="no"><span>NO</span></label><label><input type="radio" name="pq6" value="yes"><span>YES</span></label></div></div>
+        <div class="q"><p>Has a doctor said you should only do medically supervised exercise?</p><div class="yn"><label><input type="radio" name="pq7" value="no"><span>NO</span></label><label><input type="radio" name="pq7" value="yes"><span>YES</span></label></div></div>
+      </div>
+      <p class="err" id="parqErr" hidden>Answer all seven questions.</p>
+      <div class="flag" id="parqFlag" hidden>You answered yes to at least one question. That's fine. Before our first session I'll ask you for a short note from your doctor confirming you can train.</div>
+      <div class="f"><label class="l" for="injuries">Injuries, surgeries or pain I should know about</label><textarea id="injuries" name="injuries" placeholder="e.g. Left shoulder impingement in 2024, fine now on most pressing."></textarea></div>
+    </fieldset>
 
-      // ---- summary ----
-      const parqText = ['Heart condition / high blood pressure', 'Chest pain', 'Dizziness / loss of consciousness', 'Other chronic condition', 'Prescribed medication', 'Bone, joint or soft-tissue problem', 'Medically supervised exercise only'];
-      function buildSummary() {
-        const d = serialize();
-        const line = (k, v) => v && String(v).trim() ? `${k.padEnd(14)} ${String(v).trim()}\n` : '';
-        const yes = parqText.filter((_, i) => d['pq' + (i + 1)] === 'yes');
-        let s = `COACHING APPLICATION — ${d.name}\n${'='.repeat(40)}\nForm language: ${lang.toUpperCase()}\n\n`;
-        s += '[ABOUT]\n' + line('Email', d.email) + line('Phone', d.phone) + line('Instagram', d.ig) + line('Age', d.age && d.age + ' yrs') + line('Sex', d.sex) + line('Height', d.height && d.height + ' cm') + line('Weight', d.weight && d.weight + ' kg') + line('City', d.city) + '\n';
-        s += '[COACHING]\n' + line('Format', d.format) + line('Help with', (d.service || []).join(', ')) + '\n';
-        s += '[GOALS]\n' + line('Main goal', d.goal) + line('In my words', d.goalDetail) + line('Timeline', d.timeline) + line('Why now', d.why) + line('Obstacles', d.obstacles) + '\n';
-        s += '[TRAINING]\n' + line('Experience', d.experience) + line('Days/week', d.days) + line('Session', d.sessionLen) + line('Location', d.where) + line('Current', d.current) + '\n';
-        s += '[NUTRITION & LIFESTYLE]\n' + line('Tracks food', d.tracking) + line('Meals/day', d.meals) + line('Preferences', d.diet) + line('Sleep', d.sleep && d.sleep + ' h') + line('Work activity', d.job) + line('Stress (1-5)', d.stress) + line('Wearable/app', d.wearable) + '\n';
-        s += '[HEALTH CHECK]\n' + line('Screening', yes.length ? 'YES to: ' + yes.join('; ') + ' (doctor clearance needed)' : 'All no') + line('Injuries', d.injuries) + '\n';
-        s += '[LOGISTICS]\n' + line('Start', d.start) + line('Contact via', d.contactPref) + line('Heard via', d.source) + line('Notes', d.notes) + '\n';
-        s += 'Consent: accuracy confirmed, data use agreed\n';
-        return s;
-      }
+    <!-- 07 -->
+    <fieldset data-step="07 / Logistics">
+      <legend><div class="step-head"><span class="step-no">07</span><h2>Logistics</h2></div></legend>
+      <div class="grid">
+        <div class="f"><label class="l" for="start">Earliest start date</label><input type="date" id="start" name="start"></div>
+        <div class="f"><label class="l" for="contactPref">Best way to reach you</label>
+          <select id="contactPref" name="contactPref"><option value="">Select…</option><option>Email</option><option>Instagram DM</option><option>WhatsApp</option><option>Phone call</option></select></div>
+      </div>
+      <div class="f"><label class="l" for="source">How did you hear about me?</label>
+        <select id="source" name="source"><option value="">Select…</option><option>Instagram</option><option>Friend or gym member</option><option>Prime Supplements</option><option>Other</option></select></div>
+      <div class="f"><label class="l" for="notes">Anything else?</label><textarea id="notes" name="notes"></textarea></div>
+      <label class="check" id="c1w"><input type="checkbox" id="c1" name="c1"><span class="req">The information above is accurate, and I'll tell my coach if my health changes.</span></label>
+      <label class="check" id="c2w"><input type="checkbox" id="c2" name="c2"><span class="req">I agree that Dragos Szilagyi may keep this information to assess and run my coaching, and I can ask for it to be deleted at any time.</span></label>
+    </fieldset>
 
-      form.addEventListener('submit', e => {
-        e.preventDefault();
-        const bad = validate();
-        const msg = document.getElementById('formErr');
-        if (bad) {
-          msg.textContent = t('Some required answers are missing. They are marked in red.');
-          bad.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
-          const focusable = bad.matches('input,select,textarea') ? bad : bad.querySelector('input');
-          if (focusable) focusable.focus({ preventScroll: true });
-          return;
-        }
-        msg.textContent = '';
-        document.getElementById('sum').textContent = buildSummary();
-        document.getElementById('stamp').textContent = new Date().toLocaleString();
-        form.hidden = true; document.querySelector('.rail').hidden = true;
-        const done = document.getElementById('done'); done.hidden = false;
-        done.scrollIntoView({ block: 'start' });
+    <div class="actions">
+      <button type="submit" class="btn" id="submit">Review my application</button>
+      <span class="small" id="formErr" role="alert"></span>
+    </div>
+    <p class="small">Your answers stay in this browser until you send them. A draft is saved on this device as you type.</p>
+  </form>
+
+  <section id="done" hidden aria-live="polite">
+    <div class="receipt">
+      <div class="tag"><b id="tagReview">● Ready to send</b><b id="tagSent" class="sent" hidden>● Sent</b><span id="stamp"></span></div>
+      <h2 id="titleReview" data-ro="Aproape <span>gata</span>">Almost <span>done</span></h2>
+      <h2 id="titleSent" hidden data-ro="Înscriere <span>trimisă</span>">Application <span>sent</span></h2>
+      <p id="reviewNote" class="lede">Check your answers below, then send them to me.</p>
+      <p id="sentNote" class="lede" hidden>Thanks. I read every application myself and will reply within 48 hours.</p>
+      <div class="actions" id="sendRow">
+        <button type="button" class="btn" id="send">Send application</button>
+        <button type="button" class="btn ghost" id="edit">Edit answers</button>
+        <span class="small" id="sendMsg" role="status"></span>
+      </div>
+      <pre class="sum" id="sum" tabindex="0"></pre>
+      <div class="backup" id="backup">
+        <p class="small" data-ro='Nu merge trimiterea? Copiază înscrierea și trimite-mi-o pe Instagram la <span class="contact">@dragosszilagyi</span>. <a href="https://www.instagram.com/dragosszilagyi/" target="_blank" rel="noopener">Deschide profilul meu</a>'>Trouble sending? Copy your application and DM it to me on Instagram <span class="contact">@dragosszilagyi</span>. <a href="https://www.instagram.com/dragosszilagyi/" target="_blank" rel="noopener">Open my profile</a></p>
+        <div class="actions">
+          <button type="button" class="btn ghost" id="copy">Copy application</button>
+          <span class="small" id="copyMsg" role="status"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><span>Szilagyi Coaching</span><span>Cluj-Napoca · Online</span><span>IG @dragosszilagyi</span></footer>
+</div>
+
+<script>
+/* ================================================================
+   SETUP: paste your Web3Forms access key between the quotes.
+   Get one free at https://web3forms.com (enter the email where
+   you want applications delivered). Until a key is set, the
+   form only offers the copy-and-DM option.
+   ================================================================ */
+const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+
+(function(){
+  // ---- language ----
+  const RO = {
+    "● Intake open":"● Înscrieri deschise","Spots limited":"Locuri limitate",
+    "Tell me where you are now and where you want to get. It takes about 8 minutes. I read every form myself and reply within 48 hours with whether we're a good fit and what the next step looks like.":"Spune-mi unde ești acum și unde vrei să ajungi. Durează cam 8 minute. Citesc personal fiecare formular și îți răspund în 48 de ore dacă ne potrivim și care e următorul pas.",
+    "Natural bodybuilder · runner":"Culturist natural · alergător","Personal training · nutrition · online coaching":"Antrenament personal · nutriție · coaching online",
+    "About you":"Despre tine","What you're looking for":"Ce cauți","Goals":"Obiective","Training background":"Experiența de antrenament","Nutrition & lifestyle":"Nutriție și stil de viață","Health check":"Verificare medicală","Logistics":"Detalii practice",
+    "01 / About you":"01 / Despre tine","02 / Coaching":"02 / Coaching","03 / Goals":"03 / Obiective","04 / Training":"04 / Antrenament","05 / Nutrition & lifestyle":"05 / Nutriție și stil de viață","06 / Health check":"06 / Verificare medicală","07 / Logistics":"07 / Detalii practice",
+    "Full name":"Nume complet","Phone / WhatsApp":"Telefon / WhatsApp","Age":"Vârstă","Height":"Înălțime","Weight":"Greutate","yrs":"ani",
+    "Male":"Masculin","Female":"Feminin","Prefer not to say":"Prefer să nu spun","City":"Oraș",
+    "Under 18? Please have a parent or guardian fill this in with you.":"Ai sub 18 ani? Te rog completează formularul împreună cu un părinte sau tutore.",
+    "In person · Cluj":"Față în față · Cluj","Hybrid":"Hibrid","I want help with":"Vreau ajutor cu","Training program":"Program de antrenament","Nutrition":"Nutriție","Weekly check-ins":"Check-in săptămânal","Running / cardio":"Alergare / cardio","Contest prep":"Pregătire de concurs","Technique sessions":"Sesiuni de tehnică",
+    "Main goal":"Obiectiv principal","Fat loss":"Slăbire","Build muscle":"Masă musculară","Recomp":"Recompoziție","Strength":"Forță","Running":"Alergare","Compete on stage":"Concurs pe scenă","General health":"Sănătate generală",
+    "Describe it in your own words":"Descrie-l cu cuvintele tale","Timeline":"Termen","Select…":"Alege…","Under 3 months":"Sub 3 luni","3–6 months":"3–6 luni","6–12 months":"6–12 luni","Long term, no rush":"Pe termen lung, fără grabă",
+    "Why now?":"De ce acum?","What has stopped you before?":"Ce te-a oprit până acum?",
+    "Experience":"Experiență","Never trained":"Nu m-am antrenat niciodată","Under 1 yr":"Sub 1 an","1–3 yrs":"1–3 ani","3+ yrs":"3+ ani",
+    "Days per week you can train":"Zile pe săptămână în care te poți antrena","Time per session":"Timp pe antrenament","Under 45 min":"Sub 45 min",
+    "Where you train":"Unde te antrenezi","Commercial gym":"Sală de fitness","Home gym":"Sală acasă","Bodyweight / outdoors":"Greutatea corpului / în aer liber","Your current routine":"Rutina ta actuală",
+    "Do you track food?":"Îți monitorizezi alimentația?","No":"Nu","Sometimes":"Uneori","Yes, calories":"Da, caloriile","Yes, calories and macros":"Da, calorii și macronutrienți","Meals per day":"Mese pe zi",
+    "Food preferences or foods you avoid":"Preferințe alimentare sau alimente pe care le eviți","Average sleep":"Somn mediu","Daily activity at work":"Activitatea zilnică la muncă",
+    "Mostly sitting":"Mai mult pe scaun","Mixed":"Mixt","On my feet":"Mult în picioare","Physical labour":"Muncă fizică","Stress level":"Nivel de stres","Overloaded":"Copleșit","Watch or app you use":"Ceasul sau aplicația pe care o folosești",
+    "Standard pre-exercise screening. A \"yes\" doesn't rule you out; it means we get a doctor's OK before we start.":"Chestionar standard înainte de efort fizic. Un „da” nu te exclude; înseamnă doar că avem nevoie de acordul unui medic înainte să începem.",
+    "Has a doctor ever said you have a heart condition or high blood pressure?":"Ți-a spus vreodată un medic că ai o afecțiune cardiacă sau tensiune arterială mare?",
+    "Do you feel chest pain at rest, in daily life, or when you exercise?":"Simți dureri în piept în repaus, în activitățile zilnice sau când faci efort?",
+    "Have you lost balance from dizziness or lost consciousness in the last 12 months?":"Ți-ai pierdut echilibrul din cauza amețelii sau ți-ai pierdut cunoștința în ultimele 12 luni?",
+    "Have you been diagnosed with any other chronic condition (besides heart issues or blood pressure)?":"Ai fost diagnosticat(ă) cu o altă afecțiune cronică (în afară de probleme cardiace sau de tensiune)?",
+    "Are you currently taking prescribed medication for a chronic condition?":"Iei în prezent medicamente prescrise pentru o afecțiune cronică?",
+    "Do you have a bone, joint or soft-tissue problem that could get worse with more activity?":"Ai o problemă la oase, articulații sau țesuturi moi care s-ar putea agrava cu mai multă activitate?",
+    "Has a doctor said you should only do medically supervised exercise?":"Ți-a spus un medic să faci exerciții doar sub supraveghere medicală?",
+    "NO":"NU","YES":"DA","Answer all seven questions.":"Răspunde la toate cele șapte întrebări.",
+    "You answered yes to at least one question. That's fine. Before our first session I'll ask you for a short note from your doctor confirming you can train.":"Ai răspuns „da” la cel puțin o întrebare. E în regulă. Înainte de prima sesiune îți voi cere o scurtă adeverință de la medic care confirmă că te poți antrena.",
+    "Injuries, surgeries or pain I should know about":"Accidentări, operații sau dureri despre care ar trebui să știu",
+    "Earliest start date":"Cea mai apropiată dată de început","Best way to reach you":"Cum te pot contacta cel mai ușor","Instagram DM":"Mesaj pe Instagram","Phone call":"Apel telefonic",
+    "How did you hear about me?":"De unde ai aflat de mine?","Friend or gym member":"Un prieten sau cineva de la sală","Other":"Altceva","Anything else?":"Mai vrei să adaugi ceva?",
+    "The information above is accurate, and I'll tell my coach if my health changes.":"Informațiile de mai sus sunt corecte și îi voi spune antrenorului dacă starea mea de sănătate se schimbă.",
+    "I agree that Dragos Szilagyi may keep this information to assess and run my coaching, and I can ask for it to be deleted at any time.":"Sunt de acord ca Dragos Szilagyi să păstreze aceste informații pentru a-mi evalua și coordona programul, și pot cere oricând ștergerea lor.",
+    "Review my application":"Verifică înscrierea",
+    "Your answers stay in this browser until you send them. A draft is saved on this device as you type.":"Răspunsurile rămân în acest browser până le trimiți. O ciornă se salvează pe acest dispozitiv pe măsură ce scrii.",
+    "● Ready to send":"● Gata de trimis","Copy your application with the button below.":"Copiază înscrierea cu butonul de mai jos.","I'll reply within 48 hours.":"Îți răspund în 48 de ore.",
+    "Copy application":"Copiază înscrierea","Edit answers":"Editează răspunsurile",
+    "● Sent":"● Trimis","Check your answers below, then send them to me.":"Verifică răspunsurile de mai jos, apoi trimite-mi-le.",
+    "Thanks. I read every application myself and will reply within 48 hours.":"Mulțumesc. Citesc personal fiecare înscriere și îți răspund în 48 de ore.",
+    "Send application":"Trimite înscrierea","Sending…":"Se trimite…",
+    "That didn't go through. Check your connection and try again, or copy your application and DM it to me.":"Nu s-a putut trimite. Verifică conexiunea și încearcă din nou, sau copiază înscrierea și trimite-mi-o pe Instagram.",
+    "e.g. Drop to around 78 kg by summer and keep my strength. I want to finally see abs.":"ex. Să ajung la aproximativ 78 kg până la vară și să-mi păstrez forța. Vreau să-mi văd în sfârșit abdomenul.",
+    "Event, health, fresh start…":"Un eveniment, sănătatea, un nou început…",
+    "Split, main lifts, cardio, steps, sports. Rough numbers are fine (e.g. bench 70 kg × 5).":"Split, exerciții de bază, cardio, pași, sporturi. Cifre aproximative sunt ok (ex. împins 70 kg × 5).",
+    "Vegetarian, no fish, hate oats…":"Vegetarian, fără pește, nu suport ovăzul…",
+    "Apple Watch, Garmin, MyFitnessPal…":"Apple Watch, Garmin, MyFitnessPal…",
+    "e.g. Left shoulder impingement in 2024, fine now on most pressing.":"ex. Impingement la umărul stâng în 2024, acum fără probleme la majoritatea împinsurilor.",
+    // dynamic
+    "complete":"completat",
+    "Some required answers are missing. They are marked in red.":"Lipsesc câteva răspunsuri obligatorii. Sunt marcate cu roșu.",
+    "Copied. Paste it into a DM to @dragosszilagyi.":"Copiat. Lipește-l într-un mesaj către @dragosszilagyi.",
+    "Text selected. Press Ctrl/Cmd+C to copy.":"Text selectat. Apasă Ctrl/Cmd+C pentru a copia."
+  };
+  let lang = 'en';
+  const t = s => lang==='ro' ? (RO[s]||s) : s;
+  const orig = new WeakMap();
+  const root = document.querySelector('.wrap');
+  function applyLang(next){
+    lang = next;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n){
+      const p = n.parentElement;
+      if(!p || p.closest('script,style,#sum,[data-ro],.lang')) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }});
+    let n;
+    while((n = w.nextNode())){
+      if(!orig.has(n)) orig.set(n, n.nodeValue);
+      const o = orig.get(n), key = o.trim();
+      if(!key || !(key in RO)) continue;
+      const p = n.parentElement;
+      if(p.tagName==='OPTION' && !p.hasAttribute('value')) p.setAttribute('value', key);
+      n.nodeValue = lang==='ro' ? o.replace(key, RO[key]) : o;
+    }
+    root.querySelectorAll('[data-ro]').forEach(el=>{
+      if(el.dataset.en===undefined) el.dataset.en = el.innerHTML;
+      el.innerHTML = lang==='ro' ? el.dataset.ro : el.dataset.en;
+    });
+    root.querySelectorAll('[placeholder]').forEach(el=>{
+      if(el.dataset.phEn===undefined) el.dataset.phEn = el.placeholder;
+      el.placeholder = t(el.dataset.phEn);
+    });
+    root.querySelectorAll('[data-step]').forEach(el=>{
+      if(el.dataset.stepEn===undefined) el.dataset.stepEn = el.dataset.step;
+      el.dataset.step = t(el.dataset.stepEn);
+    });
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed', String(b.dataset.lang===lang)));
+    try{ localStorage.setItem('szc-lang', lang); }catch(e){}
+    if(window.__szcRefresh) window.__szcRefresh();
+  }
+  document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+
+  const form = document.getElementById('intake');
+  const KEY = 'szc-intake-draft';
+  const fieldsets = [...form.querySelectorAll('fieldset')];
+  const reqNames = ['sex','format','service','goal','experience','where'];
+
+  // ---- draft save/restore (per-device convenience) ----
+  function serialize(){
+    const o = {};
+    for (const el of form.elements){
+      if(!el.name) continue;
+      if(el.type==='radio'){ if(el.checked) o[el.name]=el.value; }
+      else if(el.type==='checkbox'){
+        if(el.name==='service'){ (o.service=o.service||[]); if(el.checked) o.service.push(el.value); }
+        else o[el.name]=el.checked;
+      } else o[el.name]=el.value;
+    }
+    return o;
+  }
+  function restore(o){
+    for (const el of form.elements){
+      if(!el.name || !(el.name in o)) continue;
+      const v=o[el.name];
+      if(el.type==='radio') el.checked = (v===el.value);
+      else if(el.type==='checkbox') el.checked = el.name==='service' ? (v||[]).includes(el.value) : !!v;
+      else el.value = v;
+    }
+  }
+  try{ const d = localStorage.getItem(KEY); if(d) restore(JSON.parse(d)); }catch(e){}
+  let saveTimer;
+  form.addEventListener('input',()=>{ clearTimeout(saveTimer); saveTimer=setTimeout(()=>{ try{localStorage.setItem(KEY,JSON.stringify(serialize()))}catch(e){} },300); update(); });
+  form.addEventListener('change',update);
+
+  // ---- progress + PAR-Q flag ----
+  function isDone(fs){
+    const req = fs.querySelectorAll('[required]');
+    for(const r of req) if(!r.value.trim()) return false;
+    for(const g of fs.querySelectorAll('[data-req]')) if(!g.querySelector('input:checked')) return false;
+    if(fs.querySelector('#parq')) for(let i=1;i<=7;i++) if(!form.querySelector(`input[name=pq${i}]:checked`)) return false;
+    if(fs.querySelector('#c1')) return form.c1.checked && form.c2.checked;
+    return true;
+  }
+  function update(){
+    const n = fieldsets.filter(isDone).length;
+    const pct = Math.round(n/fieldsets.length*100);
+    document.getElementById('railBar').style.width = pct+'%';
+    document.getElementById('railPct').textContent = pct+'% '+t('complete');
+    const anyYes = form.querySelector('#parq input[value=yes]:checked');
+    document.getElementById('parqFlag').hidden = !anyYes;
+  }
+  // which step is on screen
+  let currentFs = fieldsets[0];
+  const setRail = () => { document.getElementById('railLabel').textContent = currentFs.dataset.step; };
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ currentFs = e.target; setRail(); } });
+  },{rootMargin:'-30% 0px -60% 0px'}) : null;
+  if(io) fieldsets.forEach(f=>io.observe(f));
+  window.__szcRefresh = () => { update(); setRail(); };
+  let startLang = 'en';
+  try{ const s = localStorage.getItem('szc-lang'); if(s==='ro'||s==='en') startLang = s; else if((navigator.language||'').toLowerCase().startsWith('ro')) startLang='ro'; }catch(e){ if((navigator.language||'').toLowerCase().startsWith('ro')) startLang='ro'; }
+  applyLang(startLang);
+
+  // ---- validation ----
+  function mark(el,bad){ const f = el.closest('.f,.check'); if(f) f.classList.toggle('invalid',bad); }
+  function validate(){
+    let first=null;
+    const flag = el => { if(!first) first=el; };
+    form.querySelectorAll('[required]').forEach(el=>{
+      let bad = !el.value.trim();
+      if(!bad && el.type==='email') bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      if(!bad && el.type==='number'){ const v=+el.value; bad = (el.min && v<+el.min) || (el.max && v>+el.max); }
+      mark(el,bad); if(bad) flag(el);
+    });
+    reqNames.forEach(n=>{
+      const g = form.querySelector(`[data-req="${n}"]`);
+      const bad = !g.querySelector('input:checked');
+      g.closest('.f').classList.toggle('invalid',bad); if(bad) flag(g);
+    });
+    let parqBad=false; for(let i=1;i<=7;i++) if(!form.querySelector(`input[name=pq${i}]:checked`)) parqBad=true;
+    document.getElementById('parqErr').hidden = !parqBad; if(parqBad) flag(document.getElementById('parq'));
+    ['c1','c2'].forEach(id=>{ const bad=!form[id].checked; document.getElementById(id+'w').classList.toggle('invalid',bad); if(bad) flag(form[id]); });
+    return first;
+  }
+
+  // ---- summary ----
+  const parqText = ['Heart condition / high blood pressure','Chest pain','Dizziness / loss of consciousness','Other chronic condition','Prescribed medication','Bone, joint or soft-tissue problem','Medically supervised exercise only'];
+  function buildSummary(){
+    const d = serialize();
+    const line = (k,v) => v && String(v).trim() ? `${k.padEnd(14)} ${String(v).trim()}\n` : '';
+    const yes = parqText.filter((_,i)=>d['pq'+(i+1)]==='yes');
+    let s = `COACHING APPLICATION — ${d.name}\n${'='.repeat(40)}\nForm language: ${lang.toUpperCase()}\n\n`;
+    s += '[ABOUT]\n'+line('Email',d.email)+line('Phone',d.phone)+line('Instagram',d.ig)+line('Age',d.age&&d.age+' yrs')+line('Sex',d.sex)+line('Height',d.height&&d.height+' cm')+line('Weight',d.weight&&d.weight+' kg')+line('City',d.city)+'\n';
+    s += '[COACHING]\n'+line('Format',d.format)+line('Help with',(d.service||[]).join(', '))+'\n';
+    s += '[GOALS]\n'+line('Main goal',d.goal)+line('In my words',d.goalDetail)+line('Timeline',d.timeline)+line('Why now',d.why)+line('Obstacles',d.obstacles)+'\n';
+    s += '[TRAINING]\n'+line('Experience',d.experience)+line('Days/week',d.days)+line('Session',d.sessionLen)+line('Location',d.where)+line('Current',d.current)+'\n';
+    s += '[NUTRITION & LIFESTYLE]\n'+line('Tracks food',d.tracking)+line('Meals/day',d.meals)+line('Preferences',d.diet)+line('Sleep',d.sleep&&d.sleep+' h')+line('Work activity',d.job)+line('Stress (1-5)',d.stress)+line('Wearable/app',d.wearable)+'\n';
+    s += '[HEALTH CHECK]\n'+line('Screening', yes.length ? 'YES to: '+yes.join('; ')+' (doctor clearance needed)' : 'All no')+line('Injuries',d.injuries)+'\n';
+    s += '[LOGISTICS]\n'+line('Start',d.start)+line('Contact via',d.contactPref)+line('Heard via',d.source)+line('Notes',d.notes)+'\n';
+    s += 'Consent: accuracy confirmed, data use agreed\n';
+    return s;
+  }
+
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const bad = validate();
+    const msg = document.getElementById('formErr');
+    if(bad){
+      msg.textContent = t('Some required answers are missing. They are marked in red.');
+      bad.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth', block:'center'});
+      const focusable = bad.matches('input,select,textarea') ? bad : bad.querySelector('input');
+      if(focusable) focusable.focus({preventScroll:true});
+      return;
+    }
+    msg.textContent='';
+    document.getElementById('sum').textContent = buildSummary();
+    document.getElementById('stamp').textContent = new Date().toLocaleString();
+    form.hidden = true; document.querySelector('.rail').hidden = true;
+    const done = document.getElementById('done'); done.hidden = false;
+    done.scrollIntoView({block:'start'});
+  });
+
+  // ---- send to email via Web3Forms ----
+  const sendBtn = document.getElementById('send');
+  const hasKey = WEB3FORMS_ACCESS_KEY && !WEB3FORMS_ACCESS_KEY.startsWith('YOUR_');
+  if(!hasKey) sendBtn.hidden = true;
+  function showSent(){
+    ['tagReview','titleReview','reviewNote','sendRow','backup'].forEach(id=>document.getElementById(id).hidden=true);
+    ['tagSent','titleSent','sentNote'].forEach(id=>document.getElementById(id).hidden=false);
+    try{ localStorage.removeItem(KEY); }catch(e){}
+  }
+  sendBtn.addEventListener('click', async ()=>{
+    const msg = document.getElementById('sendMsg');
+    if(form.botcheck.checked){ showSent(); return; } // bot filled the hidden field
+    const d = serialize();
+    sendBtn.disabled = true; sendBtn.textContent = t('Sending…'); msg.textContent='';
+    try{
+      const res = await fetch('https://api.web3forms.com/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New coaching application: ${d.name} (${d.goal||'goal not set'}, ${d.format||''})`,
+          from_name: 'Szilagyi Coaching form',
+          email: d.email,
+          name: d.name,
+          phone: d.phone || '',
+          application: document.getElementById('sum').textContent
+        })
       });
+      const out = await res.json().catch(()=>({}));
+      if(res.ok && out.success){ showSent(); return; }
+      const why = (out.body && out.body.message) || out.message || out.error || ('HTTP '+res.status);
+      throw new Error('Server said: '+why);
+    }catch(err){
+      const detail = err && err.name==='TypeError' ? 'Network error: the request was blocked or could not connect ('+err.message+')' : (err && err.message);
+      console.error('[intake] send failed:', detail, err);
+      msg.textContent = t("That didn't go through. Check your connection and try again, or copy your application and DM it to me.") + ' [' + detail + ']';
+      sendBtn.disabled = false; sendBtn.textContent = t('Send application');
+    }
+  });
 
-      // ---- send to email via Web3Forms ----
-      const sendBtn = document.getElementById('send');
-      const hasKey = WEB3FORMS_ACCESS_KEY && !WEB3FORMS_ACCESS_KEY.startsWith('YOUR_');
-      if (!hasKey) sendBtn.hidden = true;
-      function showSent() {
-        ['tagReview', 'titleReview', 'reviewNote', 'sendRow', 'backup'].forEach(id => document.getElementById(id).hidden = true);
-        ['tagSent', 'titleSent', 'sentNote'].forEach(id => document.getElementById(id).hidden = false);
-        try { localStorage.removeItem(KEY); } catch (e) { }
-      }
-      sendBtn.addEventListener('click', async () => {
-        const msg = document.getElementById('sendMsg');
-        if (form.botcheck.checked) { showSent(); return; } // bot filled the hidden field
-        const d = serialize();
-        sendBtn.disabled = true; sendBtn.textContent = t('Sending…'); msg.textContent = '';
-        try {
-          const res = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-            body: JSON.stringify({
-              access_key: WEB3FORMS_ACCESS_KEY,
-              subject: `New coaching application: ${d.name} (${d.goal || 'goal not set'}, ${d.format || ''})`,
-              from_name: 'Szilagyi Coaching form',
-              email: d.email,
-              name: d.name,
-              phone: d.phone || '',
-              application: document.getElementById('sum').textContent
-            })
-          });
-          const out = await res.json().catch(() => ({}));
-          if (res.ok && out.success) { showSent(); return; }
-          throw new Error(out.message || 'send failed');
-        } catch (err) {
-          msg.textContent = t("That didn't go through. Check your connection and try again, or copy your application and DM it to me.");
-          sendBtn.disabled = false; sendBtn.textContent = t('Send application');
-        }
-      });
+  document.getElementById('edit').addEventListener('click',()=>{
+    form.hidden=false; document.querySelector('.rail').hidden=false; document.getElementById('done').hidden=true;
+    form.scrollIntoView({block:'start'});
+  });
 
-      document.getElementById('edit').addEventListener('click', () => {
-        form.hidden = false; document.querySelector('.rail').hidden = false; document.getElementById('done').hidden = true;
-        form.scrollIntoView({ block: 'start' });
-      });
-
-      document.getElementById('copy').addEventListener('click', () => {
-        const text = document.getElementById('sum').textContent;
-        const out = document.getElementById('copyMsg');
-        const fallback = () => {
-          const r = document.createRange(); r.selectNodeContents(document.getElementById('sum'));
-          const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-          out.textContent = t('Text selected. Press Ctrl/Cmd+C to copy.');
-        };
-        try {
-          navigator.clipboard.writeText(text).then(() => { out.textContent = t('Copied. Paste it into a DM to @dragosszilagyi.'); }, fallback);
-        } catch (e) { fallback(); }
-      });
-    })();
-  </script>
+  document.getElementById('copy').addEventListener('click',()=>{
+    const text = document.getElementById('sum').textContent;
+    const out = document.getElementById('copyMsg');
+    const fallback = ()=>{
+      const r=document.createRange(); r.selectNodeContents(document.getElementById('sum'));
+      const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+      out.textContent=t('Text selected. Press Ctrl/Cmd+C to copy.');
+    };
+    try{
+      navigator.clipboard.writeText(text).then(()=>{ out.textContent=t('Copied. Paste it into a DM to @dragosszilagyi.'); }, fallback);
+    }catch(e){ fallback(); }
+  });
+})();
+</script>
 
 </body>
-
 </html>
