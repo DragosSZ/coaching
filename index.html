@@ -306,11 +306,22 @@ footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted)
       <h2 id="titleSent" hidden data-ro="Înscriere <span>trimisă</span>">Application <span>sent</span></h2>
       <p id="reviewNote" class="lede">Check your answers below, then send them to me.</p>
       <p id="sentNote" class="lede" hidden>Thanks. I read every application myself and will reply within 48 hours.</p>
-      <div class="actions" id="sendRow">
-        <button type="button" class="btn" id="send">Send application</button>
-        <button type="button" class="btn ghost" id="edit">Edit answers</button>
-        <span class="small" id="sendMsg" role="status"></span>
-      </div>
+      <form id="sendForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" id="sf_key">
+        <input type="hidden" name="subject" id="sf_subject">
+        <input type="hidden" name="from_name" value="Szilagyi Coaching form">
+        <input type="hidden" name="name" id="sf_name">
+        <input type="hidden" name="email" id="sf_email">
+        <input type="hidden" name="phone" id="sf_phone">
+        <input type="hidden" name="message" id="sf_message">
+        <input type="hidden" name="redirect" id="sf_redirect" disabled>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="actions" id="sendRow">
+          <button type="submit" class="btn" id="send">Send application</button>
+          <button type="button" class="btn ghost" id="edit">Edit answers</button>
+          <span class="small" id="sendMsg" role="status"></span>
+        </div>
+      </form>
       <pre class="sum" id="sum" tabindex="0"></pre>
       <div class="backup" id="backup">
         <p class="small" data-ro='Nu merge trimiterea? Copiază înscrierea și trimite-mi-o pe Instagram la <span class="contact">@dragosszilagyi</span>. <a href="https://www.instagram.com/dragosszilagyi/" target="_blank" rel="noopener">Deschide profilul meu</a>'>Trouble sending? Copy your application and DM it to me on Instagram <span class="contact">@dragosszilagyi</span>. <a href="https://www.instagram.com/dragosszilagyi/" target="_blank" rel="noopener">Open my profile</a></p>
@@ -332,7 +343,7 @@ footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted)
    you want applications delivered). Until a key is set, the
    form only offers the copy-and-DM option.
    ================================================================ */
-const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79";
 
 (function(){
   // ---- language ----
@@ -544,6 +555,7 @@ const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
     msg.textContent='';
     document.getElementById('sum').textContent = buildSummary();
     document.getElementById('stamp').textContent = new Date().toLocaleString();
+    if(window.__szcFill) window.__szcFill();
     form.hidden = true; document.querySelector('.rail').hidden = true;
     const done = document.getElementById('done'); done.hidden = false;
     done.scrollIntoView({block:'start'});
@@ -558,36 +570,39 @@ const WEB3FORMS_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
     ['tagSent','titleSent','sentNote'].forEach(id=>document.getElementById(id).hidden=false);
     try{ localStorage.removeItem(KEY); }catch(e){}
   }
-  sendBtn.addEventListener('click', async ()=>{
-    const msg = document.getElementById('sendMsg');
-    if(form.botcheck.checked){ showSent(); return; } // bot filled the hidden field
+  // Plain HTML form post to Web3Forms (like the snippet from their docs).
+  // Hidden fields are filled when the client reaches the review screen.
+  const sendForm = document.getElementById('sendForm');
+  function fillSendForm(){
     const d = serialize();
-    sendBtn.disabled = true; sendBtn.textContent = t('Sending…'); msg.textContent='';
-    try{
-      const res = await fetch('https://api.web3forms.com/submit',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body: JSON.stringify({
-          access_key: WEB3FORMS_ACCESS_KEY,
-          subject: `New coaching application: ${d.name} (${d.goal||'goal not set'}, ${d.format||''})`,
-          from_name: 'Szilagyi Coaching form',
-          email: d.email,
-          name: d.name,
-          phone: d.phone || '',
-          application: document.getElementById('sum').textContent
-        })
-      });
-      const out = await res.json().catch(()=>({}));
-      if(res.ok && out.success){ showSent(); return; }
-      const why = (out.body && out.body.message) || out.message || out.error || ('HTTP '+res.status);
-      throw new Error('Server said: '+why);
-    }catch(err){
-      const detail = err && err.name==='TypeError' ? 'Network error: the request was blocked or could not connect ('+err.message+')' : (err && err.message);
-      console.error('[intake] send failed:', detail, err);
-      msg.textContent = t("That didn't go through. Check your connection and try again, or copy your application and DM it to me.") + ' [' + detail + ']';
-      sendBtn.disabled = false; sendBtn.textContent = t('Send application');
-    }
+    document.getElementById('sf_key').value = WEB3FORMS_ACCESS_KEY;
+    document.getElementById('sf_subject').value = `New coaching application: ${d.name} (${d.goal||'goal not set'}, ${d.format||''})`;
+    document.getElementById('sf_name').value = d.name || '';
+    document.getElementById('sf_email').value = d.email || '';
+    document.getElementById('sf_phone').value = d.phone || '';
+    document.getElementById('sf_message').value = document.getElementById('sum').textContent;
+    // On a real website, come back to this page's "sent" screen after Web3Forms accepts it.
+    const r = document.getElementById('sf_redirect');
+    if(/^https?:$/.test(location.protocol)){ r.value = location.href.split('#')[0] + '#sent'; r.disabled = false; }
+  }
+  window.__szcFill = fillSendForm;
+  sendForm.addEventListener('submit', e=>{
+    if(sendForm.botcheck.checked){ e.preventDefault(); showSent(); return; } // bot filled the hidden field
+    fillSendForm();
+    try{ localStorage.removeItem(KEY); }catch(err){}
+    sendBtn.disabled = true; sendBtn.textContent = t('Sending…');
+    // no preventDefault: the browser posts the form to Web3Forms
   });
+  // Re-enable the button if the visitor comes back with the browser's Back button.
+  window.addEventListener('pageshow', ()=>{ sendBtn.disabled = false; sendBtn.textContent = t('Send application'); });
+
+  // Returning from Web3Forms after a successful send.
+  if(location.hash === '#sent'){
+    form.hidden = true; document.querySelector('.rail').hidden = true;
+    document.getElementById('done').hidden = false;
+    document.getElementById('sum').hidden = true;
+    showSent();
+  }
 
   document.getElementById('edit').addEventListener('click',()=>{
     form.hidden=false; document.querySelector('.rail').hidden=false; document.getElementById('done').hidden=true;
