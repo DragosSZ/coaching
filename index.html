@@ -3,82 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Apply for personal training or online coaching with Dragos Szilagyi. Cluj-Napoca and online.">
+<meta name="description" content="Apply for personal training or online coaching with Dragon Physique Coaching. Cluj-Napoca and online.">
+<meta name="theme-color" content="#0b0a10">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Szilagyi Coaching Intake</title>
+<title>Dragon Physique Coaching</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one narrow column of numbered intake steps, a sticky progress rail on top, summary card after submit. Brand: charcoal / chalk / iron-red. */
+/* Layout: full-bleed photo backdrop (fixed, darkened) behind a centered column of dark glass step cards; brand wordmark sits over the photos at the top. Brand: Dragon Physique Coaching — ink black, chalk white, electric purple. Single dark theme by design. */
 :root{
-  --bg:#f3f2ef; --surface:#ffffff; --ink:#1b1c1e; --muted:#5f6166; --line:#d9d7d2;
-  --accent:#b3261e; --accent-ink:#ffffff; --field:#fbfaf8; --ok:#2f6b3a; --warn:#9a5b00;
+  --bg:#0b0a10; --surface:rgba(18,16,26,.88); --surface-solid:#14121c; --ink:#f3f1f8; --muted:#aaa5bb; --line:#2f2a40;
+  --field:#0f0d16; --accent:#5400bd; --accent-hi:#a47dff; --accent-ink:#ffffff; --ok:#7fd494; --warn:#f2ad4f;
+  --serif:"DM Serif Display",Georgia,"Times New Roman",serif;
   --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
   --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#131416; --surface:#1c1d20; --ink:#ecebe7; --muted:#9c9da3; --line:#2f3035;
-  --accent:#e0483d; --accent-ink:#ffffff; --field:#17181a; --ok:#6fbf7d; --warn:#e3a547; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#131416; --surface:#1c1d20; --ink:#ecebe7; --muted:#9c9da3; --line:#2f3035;
-  --accent:#e0483d; --accent-ink:#ffffff; --field:#17181a; --ok:#6fbf7d; --warn:#e3a547; color-scheme:dark}
-
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 calc(120px + env(safe-area-inset-bottom,0px))}
 html{overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;padding-block:0 calc(120px + env(safe-area-inset-bottom,0px))}
+/* the photo collage as a fixed page backdrop (a fixed pseudo-element, since iOS ignores background-attachment:fixed) */
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:url("backdrop.jpg") center top/auto clamp(300px,52vh,620px) repeat var(--bg)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(11,10,16,.35) 0%,rgba(11,10,16,.78) 38%,rgba(11,10,16,.92) 70%,rgba(11,10,16,.96) 100%),
+             radial-gradient(120% 60% at 50% 0%,rgba(84,0,189,.28),transparent 70%)}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .wrap{max-width:720px;margin:0 auto}
-header.hero{padding-block:40px 24px;display:grid;gap:12px}
+.wrap.gutter{max-width:calc(720px + 2 * max(16px,env(safe-area-inset-left,0px)))}
+
+header.hero{padding-block:28px 40px}
 .toprow{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.lang{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.lang{display:inline-flex;border:1px solid rgba(255,255,255,.22);border-radius:4px;overflow:hidden;background:rgba(11,10,16,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .lang button{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;border:0;background:transparent;color:var(--muted);padding:6px 12px;cursor:pointer}
-.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 .tag{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
-.tag b{color:var(--accent);font-weight:500}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,9vw,68px);line-height:.92;margin:0;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
-h1 span{color:var(--accent)}
+.tag b{color:var(--accent-hi);font-weight:500}
+.hero .tag{color:#d9d5e4;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+
+.brand{margin:clamp(48px,14vw,120px) 0 0;display:grid;justify-items:center;text-align:center;line-height:.9;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+.brand-a{font-family:var(--serif);font-size:clamp(64px,17vw,132px);color:#fff;letter-spacing:-.01em}
+.brand-b{font-family:var(--serif);font-style:italic;text-transform:uppercase;font-size:clamp(26px,7.2vw,56px);color:var(--accent);
+  text-shadow:0 0 28px rgba(130,60,255,.55),0 2px 12px rgba(0,0,0,.7);letter-spacing:.005em;margin-top:2px}
+.intro{margin-top:clamp(32px,8vw,56px);display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px 20px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,7vw,48px);line-height:1;margin:0;text-wrap:balance}
+h1 span{color:var(--accent-hi);font-style:italic}
 .lede{color:var(--muted);max-width:60ch;margin:0}
 .meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:12.5px;color:var(--muted)}
-.meta span::before{content:"› ";color:var(--accent)}
+.meta span::before{content:"› ";color:var(--accent-hi)}
 
-.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:24px}
+.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(11,10,16,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:24px}
 .rail-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted);margin-bottom:6px}
 .bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-hi));transition:width .25s ease}
 
 form{display:grid;gap:20px}
-fieldset{border:1px solid var(--line);background:var(--surface);border-radius:6px;margin:0;padding:22px 20px 24px;display:grid;gap:18px;min-width:0}
+fieldset{border:1px solid var(--line);background:var(--surface);border-radius:8px;margin:0;padding:22px 20px 24px;display:grid;gap:18px;min-width:0;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 legend{display:contents}
 .step-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px}
-.step-no{font-family:var(--mono);font-size:12px;color:var(--accent)}
-.step-head h2{font-family:var(--display);font-weight:700;font-size:26px;text-transform:uppercase;margin:0;letter-spacing:.02em;line-height:1}
+.step-no{font-family:var(--mono);font-size:12px;color:var(--accent-hi)}
+.step-head h2{font-family:var(--serif);font-weight:400;font-size:30px;margin:0;line-height:1}
 .hint{font-size:14px;color:var(--muted);margin:0}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:560px){.grid,.grid.three{grid-template-columns:1fr}}
 .f{display:grid;gap:6px;min-width:0}
 .f.full{grid-column:1/-1}
-label.l,.l{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
-.req::after{content:" *";color:var(--accent)}
+label.l,.l{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.07em;text-transform:uppercase;color:#e4e0ee}
+.req::after{content:" *";color:var(--accent-hi)}
 input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],select,textarea{
   width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:4px;padding:10px 12px}
+input::placeholder,textarea::placeholder{color:#6f6a80}
+input:hover,select:hover,textarea:hover{border-color:#453e5c}
 textarea{min-height:88px;resize:vertical}
 /* iOS Safari gives date inputs an intrinsic min width that overflows narrow cards */
 input[type=date]{-webkit-appearance:none;appearance:none;display:block;min-width:0;max-width:100%;min-height:46px;line-height:1.3;text-align:left}
 input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0}
-input[type=date]::-webkit-calendar-picker-indicator{opacity:.6}
-input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,.chip input:focus-visible+span,.yn input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+input[type=date]::-webkit-calendar-picker-indicator{opacity:.7;filter:invert(1)}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,.chip input:focus-visible+span,.yn input:focus-visible+span{outline:2px solid var(--accent-hi);outline-offset:2px}
 .unit{position:relative}
 .unit input{padding-right:44px}
 .unit em{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;font-family:var(--mono);font-size:12px;color:var(--muted);pointer-events:none}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{position:relative}
 .chip input{position:absolute;opacity:0;width:1px;height:1px}
-.chip span{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--field);font-size:15px;cursor:pointer;user-select:none}
-.chip input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip span{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--field);font-size:15px;cursor:pointer;user-select:none;transition:border-color .15s}
+.chip span:hover{border-color:var(--accent-hi)}
+.chip input:checked+span{background:var(--accent);border-color:var(--accent-hi);color:var(--accent-ink)}
 .scale{display:flex;gap:6px}
 .scale .chip span{width:44px;text-align:center;padding:8px 0;font-family:var(--mono)}
 .scale-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);max-width:260px}
@@ -91,49 +106,59 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-vis
 .yn input{position:absolute;opacity:0;width:1px;height:1px}
 .yn span{display:inline-block;width:48px;text-align:center;padding:6px 0;border:1px solid var(--line);border-radius:4px;font-family:var(--mono);font-size:13px;cursor:pointer;background:var(--field)}
 .yn input:checked+span{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.yn input[value=yes]:checked+span{background:var(--warn);border-color:var(--warn);color:#fff}
+.yn input[value=yes]:checked+span{background:var(--warn);border-color:var(--warn);color:var(--bg)}
 .flag{font-size:14px;color:var(--warn);border-left:3px solid var(--warn);padding:8px 12px;background:var(--field)}
 
 .check{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;font-size:15px}
 .check input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
-.err{color:var(--accent);font-size:13.5px;font-family:var(--mono)}
-.invalid input,.invalid select,.invalid textarea,.invalid .chip span{border-color:var(--accent)}
+.err{color:#ff8a8a;font-size:13.5px;font-family:var(--mono)}
+.invalid input,.invalid select,.invalid textarea,.invalid .chip span{border-color:#ff6b6b}
 
 .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.btn{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.06em;text-transform:uppercase;border:0;border-radius:4px;padding:12px 26px;cursor:pointer;background:var(--accent);color:var(--accent-ink)}
-.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-size:16px;padding:10px 18px}
+.btn{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.07em;text-transform:uppercase;border:1px solid var(--accent-hi);border-radius:4px;padding:12px 26px;cursor:pointer;background:var(--accent);color:var(--accent-ink);
+  box-shadow:0 8px 30px -8px rgba(84,0,189,.8)}
+.btn:hover{background:#6410e0}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);font-size:16px;padding:10px 18px;box-shadow:none}
+.btn.ghost:hover{border-color:var(--accent-hi)}
 .small{font-size:13px;color:var(--muted)}
+#formErr{color:#ff8a8a}
 
 #done{display:grid;gap:18px}
-.receipt{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px 20px;display:grid;gap:16px}
-.receipt h2{font-family:var(--display);font-weight:800;font-size:36px;text-transform:uppercase;margin:0;line-height:1}
-.receipt h2 span{color:var(--ok)}
+.receipt{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px 20px;display:grid;gap:16px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.receipt h2{font-family:var(--serif);font-weight:400;font-size:40px;margin:0;line-height:1}
+.receipt h2 span{color:var(--accent-hi);font-style:italic}
 pre.sum{font-family:var(--mono);font-size:13px;line-height:1.55;white-space:pre-wrap;word-break:break-word;background:var(--field);border:1px solid var(--line);border-radius:4px;padding:14px;margin:0;max-height:420px;overflow:auto}
 .steps{display:grid;gap:10px;margin:0;padding-left:20px}
-.contact{font-family:var(--mono);font-size:14px;user-select:all;color:var(--accent)}
+.contact{font-family:var(--mono);font-size:14px;user-select:all;color:var(--accent-hi)}
 .tag b.sent{color:var(--ok)}
 .backup{display:grid;gap:10px;border-top:1px solid var(--line);padding-top:16px}
 .backup p{margin:0}
 .btn:disabled{opacity:.6;cursor:wait}
 .hp{display:none}
-a{color:var(--accent)}
+a{color:var(--accent-hi)}
 footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
-@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+footer b{font-family:var(--serif);font-weight:400;font-size:15px;color:var(--ink);letter-spacing:0}
+@media (prefers-reduced-motion:reduce){.bar i,.chip span{transition:none}}
 </style>
 
 </head>
 <body>
-<div class="wrap">
-  <header class="hero">
+<header class="hero gutter">
+  <div class="wrap">
     <div class="toprow">
       <div class="tag"><b>● Intake open</b><span>Spots limited</span><span>Cluj-Napoca + online</span></div>
       <div class="lang" role="group" aria-label="Language / Limbă"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="ro" aria-pressed="false">RO</button></div>
     </div>
-    <h1 data-ro="Formular de <span>înscriere</span>">Coaching <span>intake</span> form</h1>
-    <p class="lede">Tell me where you are now and where you want to get. It takes about 8 minutes. I read every form myself and reply within 48 hours with whether we're a good fit and what the next step looks like.</p>
-    <div class="meta"><span>Dragos Szilagyi</span><span>Natural bodybuilder · runner</span><span>Personal training · nutrition · online coaching</span></div>
-  </header>
+    <p class="brand" aria-label="Dragon Physique Coaching"><span class="brand-a">Dragon</span><span class="brand-b">Physique Coaching</span></p>
+    <div class="intro">
+      <h1 data-ro="Formular de <span>înscriere</span>">Client <span>intake</span></h1>
+      <p class="lede">Tell me where you are now and where you want to get. It takes about 8 minutes. I read every form myself and reply within 48 hours with whether we're a good fit and what the next step looks like.</p>
+      <div class="meta"><span>Coach: Dragos Szilagyi</span><span>Natural bodybuilder · runner</span><span>Personal training · nutrition · online coaching</span></div>
+    </div>
+  </div>
+</header>
 
+<div class="wrap gutter">
   <div class="rail" aria-hidden="true">
     <div class="rail-row"><span id="railLabel">01 / About you</span><span id="railPct">0% complete</span></div>
     <div class="bar"><i id="railBar"></i></div>
@@ -314,7 +339,7 @@ footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted)
       <form id="sendForm" action="https://api.web3forms.com/submit" method="POST">
         <input type="hidden" name="access_key" id="sf_key">
         <input type="hidden" name="subject" id="sf_subject">
-        <input type="hidden" name="from_name" value="Szilagyi Coaching form">
+        <input type="hidden" name="from_name" value="Dragon Physique Coaching">
         <input type="hidden" name="name" id="sf_name">
         <input type="hidden" name="email" id="sf_email">
         <input type="hidden" name="phone" id="sf_phone">
@@ -338,7 +363,7 @@ footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted)
     </div>
   </section>
 
-  <footer><span>Szilagyi Coaching</span><span>Cluj-Napoca · Online</span><span>IG @dragosszilagyi</span></footer>
+  <footer><b>Dragon Physique Coaching</b><span>Cluj-Napoca · Online</span><span>IG @dragosszilagyi</span></footer>
 </div>
 
 <script>
@@ -355,7 +380,7 @@ const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79";
   const RO = {
     "● Intake open":"● Înscrieri deschise","Spots limited":"Locuri limitate",
     "Tell me where you are now and where you want to get. It takes about 8 minutes. I read every form myself and reply within 48 hours with whether we're a good fit and what the next step looks like.":"Spune-mi unde ești acum și unde vrei să ajungi. Durează cam 8 minute. Citesc personal fiecare formular și îți răspund în 48 de ore dacă ne potrivim și care e următorul pas.",
-    "Natural bodybuilder · runner":"Culturist natural · alergător","Personal training · nutrition · online coaching":"Antrenament personal · nutriție · coaching online",
+    "Coach: Dragos Szilagyi":"Antrenor: Dragos Szilagyi","Natural bodybuilder · runner":"Culturist natural · alergător","Personal training · nutrition · online coaching":"Antrenament personal · nutriție · coaching online",
     "About you":"Despre tine","What you're looking for":"Ce cauți","Goals":"Obiective","Training background":"Experiența de antrenament","Nutrition & lifestyle":"Nutriție și stil de viață","Health check":"Verificare medicală","Logistics":"Detalii practice",
     "01 / About you":"01 / Despre tine","02 / Coaching":"02 / Coaching","03 / Goals":"03 / Obiective","04 / Training":"04 / Antrenament","05 / Nutrition & lifestyle":"05 / Nutriție și stil de viață","06 / Health check":"06 / Verificare medicală","07 / Logistics":"07 / Detalii practice",
     "Full name":"Nume complet","Phone / WhatsApp":"Telefon / WhatsApp","Age":"Vârstă","Height":"Înălțime","Weight":"Greutate","yrs":"ani",
@@ -534,7 +559,7 @@ const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79";
     const d = serialize();
     const line = (k,v) => v && String(v).trim() ? `${k.padEnd(14)} ${String(v).trim()}\n` : '';
     const yes = parqText.filter((_,i)=>d['pq'+(i+1)]==='yes');
-    let s = `COACHING APPLICATION — ${d.name}\n${'='.repeat(40)}\nForm language: ${lang.toUpperCase()}\n\n`;
+    let s = `DRAGON PHYSIQUE COACHING — APPLICATION — ${d.name}\n${'='.repeat(40)}\nForm language: ${lang.toUpperCase()}\n\n`;
     s += '[ABOUT]\n'+line('Email',d.email)+line('Phone',d.phone)+line('Instagram',d.ig)+line('Age',d.age&&d.age+' yrs')+line('Sex',d.sex)+line('Height',d.height&&d.height+' cm')+line('Weight',d.weight&&d.weight+' kg')+line('City',d.city)+'\n';
     s += '[COACHING]\n'+line('Format',d.format)+line('Help with',(d.service||[]).join(', '))+'\n';
     s += '[GOALS]\n'+line('Main goal',d.goal)+line('In my words',d.goalDetail)+line('Timeline',d.timeline)+line('Why now',d.why)+line('Obstacles',d.obstacles)+'\n';
