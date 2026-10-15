@@ -135,6 +135,8 @@ pre.sum{font-family:var(--mono);font-size:13px;line-height:1.55;white-space:pre-
 .backup p{margin:0}
 .btn:disabled{opacity:.6;cursor:wait}
 .hp{display:none}
+.draft{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin:-8px 0 20px;padding:10px 14px;border:1px solid var(--accent);border-radius:6px;background:rgba(84,0,189,.18);font-size:14px}
+.draft .btn.ghost{font-size:14px;padding:6px 14px}
 a{color:var(--accent-hi)}
 footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
 footer b{font-family:var(--serif);font-weight:400;font-size:15px;color:var(--ink);letter-spacing:0}
@@ -164,7 +166,9 @@ footer b{font-family:var(--serif);font-weight:400;font-size:15px;color:var(--ink
     <div class="bar"><i id="railBar"></i></div>
   </div>
 
-  <form id="intake" novalidate>
+  <div class="draft" id="draftNote" hidden><span>Your saved answers from last time were restored.</span><button type="button" class="btn ghost" id="startOver">Start over</button></div>
+
+  <form id="intake" novalidate autocomplete="on">
     <input type="checkbox" name="botcheck" id="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
     <!-- 01 -->
     <fieldset data-step="01 / About you">
@@ -414,6 +418,7 @@ const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79";
     "Review my application":"Verifică înscrierea",
     "Your answers stay in this browser until you send them. A draft is saved on this device as you type.":"Răspunsurile rămân în acest browser până le trimiți. O ciornă se salvează pe acest dispozitiv pe măsură ce scrii.",
     "● Ready to send":"● Gata de trimis","Copy your application with the button below.":"Copiază înscrierea cu butonul de mai jos.","I'll reply within 48 hours.":"Îți răspund în 48 de ore.",
+    "Your saved answers from last time were restored.":"Răspunsurile salvate data trecută au fost restaurate.","Start over":"Ia-o de la capăt",
     "Copy application":"Copiază înscrierea","Edit answers":"Editează răspunsurile",
     "● Sent":"● Trimis","Check your answers below, then send them to me.":"Verifică răspunsurile de mai jos, apoi trimite-mi-le.",
     "Thanks. I read every application myself and will reply within 48 hours.":"Mulțumesc. Citesc personal fiecare înscriere și îți răspund în 48 de ore.",
@@ -497,7 +502,20 @@ const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79";
       else el.value = v;
     }
   }
-  try{ const d = localStorage.getItem(KEY); if(d) restore(JSON.parse(d)); }catch(e){}
+  let restored = false;
+  try{ const d = localStorage.getItem(KEY); if(d){ const o = JSON.parse(d); restore(o);
+    restored = Object.entries(o).some(([k,v])=> k!=='botcheck' && (Array.isArray(v) ? v.length : !!v)); } }catch(e){}
+  const draftNote = document.getElementById('draftNote');
+  if(restored && location.hash !== '#sent') draftNote.hidden = false;
+  document.getElementById('startOver').addEventListener('click',()=>{
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    form.reset();
+    form.querySelectorAll('.invalid').forEach(el=>el.classList.remove('invalid'));
+    document.getElementById('formErr').textContent='';
+    draftNote.hidden = true;
+    update();
+    window.scrollTo({top:0});
+  });
   let saveTimer;
   form.addEventListener('input',()=>{ clearTimeout(saveTimer); saveTimer=setTimeout(()=>{ try{localStorage.setItem(KEY,JSON.stringify(serialize()))}catch(e){} },300); update(); });
   form.addEventListener('change',update);
