@@ -24,7 +24,7 @@
 }
 *{box-sizing:border-box}
 html{overflow-x:hidden}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;padding-block:0 calc(120px + env(safe-area-inset-bottom,0px))}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;padding-block:0 calc(32px + env(safe-area-inset-bottom,0px))}
 /* the photo collage as a fixed page backdrop (a fixed pseudo-element, since iOS ignores background-attachment:fixed) */
 body::before{content:"";position:fixed;inset:0;z-index:-2;background:url("backdrop.jpg") center top/auto clamp(300px,52vh,620px) repeat var(--bg)}
 body::after{content:"";position:fixed;inset:0;z-index:-1;
@@ -138,7 +138,7 @@ pre.sum{font-family:var(--mono);font-size:13px;line-height:1.55;white-space:pre-
 .draft{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin:-8px 0 20px;padding:10px 14px;border:1px solid var(--accent);border-radius:6px;background:rgba(84,0,189,.18);font-size:14px}
 .draft .btn.ghost{font-size:14px;padding:6px 14px}
 a{color:var(--accent-hi)}
-footer{margin-top:32px;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
+footer{margin-top:28px;font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
 footer b{font-family:var(--serif);font-weight:400;font-size:15px;color:var(--ink);letter-spacing:0}
 @media (prefers-reduced-motion:reduce){.bar i,.chip span{transition:none}}
 </style>
@@ -439,7 +439,7 @@ const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79";
   let lang = 'en';
   const t = s => lang==='ro' ? (RO[s]||s) : s;
   const orig = new WeakMap();
-  const root = document.querySelector('.wrap');
+  const root = document.body; // whole page: hero, form, review screen and footer
   function applyLang(next){
     lang = next;
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {acceptNode(n){
