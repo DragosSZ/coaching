@@ -45,8 +45,8 @@ header.hero{padding-block:28px 40px}
 
 .brand{margin:clamp(48px,14vw,120px) 0 0;display:grid;justify-items:center;text-align:center;line-height:.9;text-shadow:0 4px 30px rgba(0,0,0,.6)}
 .brand-a{font-family:var(--serif);font-size:clamp(64px,17vw,132px);color:#fff;letter-spacing:-.01em}
-.brand-b{font-family:var(--serif);font-style:italic;text-transform:uppercase;font-size:clamp(26px,7.2vw,56px);color:var(--accent);
-  text-shadow:0 0 28px rgba(130,60,255,.55),0 2px 12px rgba(0,0,0,.7);letter-spacing:.005em;margin-top:2px}
+.brand-b{font-family:var(--serif);font-style:italic;text-transform:uppercase;font-size:clamp(26px,7.2vw,56px);color:#9a6bff;
+  text-shadow:0 0 1px rgba(255,255,255,.35),0 0 22px rgba(120,40,255,.75),0 2px 14px rgba(0,0,0,.85);letter-spacing:.005em;margin-top:2px}
 .intro{margin-top:clamp(32px,8vw,56px);display:grid;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:22px 20px;
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,7vw,48px);line-height:1;margin:0;text-wrap:balance}
@@ -512,8 +512,13 @@ const WEB3FORMS_ACCESS_KEY = "5212dde0-e4d1-4ac7-b7d8-bef1dac51e79";
     return true;
   }
   function update(){
-    const n = fieldsets.filter(isDone).length;
-    const pct = Math.round(n/fieldsets.length*100);
+    // progress = share of required answers given (not sections, since optional-only sections would count as done)
+    const items = [];
+    form.querySelectorAll('[required]').forEach(el=>items.push(!!el.value.trim()));
+    form.querySelectorAll('[data-req]').forEach(g=>items.push(!!g.querySelector('input:checked')));
+    for(let i=1;i<=7;i++) items.push(!!form.querySelector(`input[name=pq${i}]:checked`));
+    items.push(form.c1.checked, form.c2.checked);
+    const pct = Math.round(items.filter(Boolean).length/items.length*100);
     document.getElementById('railBar').style.width = pct+'%';
     document.getElementById('railPct').textContent = pct+'% '+t('complete');
     const anyYes = form.querySelector('#parq input[value=yes]:checked');
